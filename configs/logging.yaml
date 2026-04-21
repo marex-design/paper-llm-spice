@@ -1,0 +1,106 @@
+logging:
+  level: "INFO"
+  format: "json"
+  timestamp_format: "%Y-%m-%dT%H:%M:%S"
+
+  console:
+    enabled: true
+    level: "INFO"
+
+  file:
+    enabled: true
+    level: "DEBUG"
+    root_dir: "artifacts/logs"
+    main_log_file: "framework.log"
+    rotate: false
+
+  experiment_tracking:
+    log_experiment_start: true
+    log_experiment_end: true
+    log_use_case_start: true
+    log_use_case_end: true
+    log_mode_start: true
+    log_mode_end: true
+    log_candidate_start: true
+    log_candidate_end: true
+    log_iteration_start: true
+    log_iteration_end: true
+
+  llm_logging:
+    log_backend_name: true
+    log_model_name: true
+    log_request_config: true
+    log_prompt_hash: true
+    log_prompt_preview: false
+    log_raw_response_path: true
+    log_cleaned_response_path: true
+    log_retry_events: true
+    hide_api_key: true
+
+  spice_logging:
+    log_netlist_path: true
+    log_command: true
+    log_logfile_path: true
+    log_exit_code: true
+    log_measure_extraction: true
+    log_detected_warnings: true
+    log_detected_errors: true
+    log_sweep_runs: true
+
+  evaluation_logging:
+    log_sanity_check_result: true
+    log_missing_measurements: true
+    log_nominal_decision: true
+    log_robustness_decision: true
+    log_final_decision: true
+    log_primary_metric_value: true
+    log_failure_reason: true
+    log_error_taxonomy_code: true
+
+  reporting_logging:
+    log_generated_summary_files: true
+    log_generated_csv_files: true
+    log_generated_markdown_files: true
+
+  security:
+    redact_api_keys: true
+    redact_env_vars:
+      - "GEMINI_API_KEY"
+    redact_prompt_secrets: true
+
+  metadata:
+    include_experiment_name: true
+    include_use_case_id: true
+    include_mode: true
+    include_candidate_id: true
+    include_iteration_id: true
+    include_backend: true
+    include_model: true
+
+  event_names:
+    experiment_start: "EXPERIMENT_START"
+    experiment_end: "EXPERIMENT_END"
+    use_case_start: "USE_CASE_START"
+    use_case_end: "USE_CASE_END"
+    mode_start: "MODE_START"
+    mode_end: "MODE_END"
+    candidate_start: "CANDIDATE_START"
+    candidate_end: "CANDIDATE_END"
+    iteration_start: "ITERATION_START"
+    iteration_end: "ITERATION_END"
+    llm_request: "LLM_REQUEST"
+    llm_response: "LLM_RESPONSE"
+    spice_run: "SPICE_RUN"
+    spice_parse: "SPICE_PARSE"
+    sanity_check: "SANITY_CHECK"
+    nominal_eval: "NOMINAL_EVAL"
+    robustness_eval: "ROBUSTNESS_EVAL"
+    final_decision: "FINAL_DECISION"
+    report_export: "REPORT_EXPORT"
+
+paper_alignment:
+  log_full_experimental_trace: true
+  log_backend_and_model: true
+  log_decision_path: true
+  log_error_taxonomy_mapping: true
+  log_artifact_paths: true

@@ -1,0 +1,2437 @@
+{
+  "case": "uc3",
+  "baseline": [
+    {
+      "candidate_id": "cand_01",
+      "mode": "baseline",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\baseline\\attempt_00\\cand_01\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 0,
+      "attempt_dir": "runs\\uc3\\baseline\\attempt_00"
+    },
+    {
+      "candidate_id": "cand_02",
+      "mode": "baseline",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\baseline\\attempt_00\\cand_02\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 0,
+      "attempt_dir": "runs\\uc3\\baseline\\attempt_00"
+    },
+    {
+      "candidate_id": "cand_03",
+      "mode": "baseline",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\baseline\\attempt_00\\cand_03\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 0,
+      "attempt_dir": "runs\\uc3\\baseline\\attempt_00"
+    },
+    {
+      "candidate_id": "cand_01",
+      "mode": "baseline",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\baseline\\attempt_01\\cand_01\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 1,
+      "attempt_dir": "runs\\uc3\\baseline\\attempt_01"
+    },
+    {
+      "candidate_id": "cand_02",
+      "mode": "baseline",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\baseline\\attempt_01\\cand_02\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 1,
+      "attempt_dir": "runs\\uc3\\baseline\\attempt_01"
+    },
+    {
+      "candidate_id": "cand_03",
+      "mode": "baseline",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\baseline\\attempt_01\\cand_03\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 1,
+      "attempt_dir": "runs\\uc3\\baseline\\attempt_01"
+    },
+    {
+      "candidate_id": "cand_01",
+      "mode": "baseline",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\baseline\\attempt_02\\cand_01\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 2,
+      "attempt_dir": "runs\\uc3\\baseline\\attempt_02"
+    },
+    {
+      "candidate_id": "cand_02",
+      "mode": "baseline",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\baseline\\attempt_02\\cand_02\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 2,
+      "attempt_dir": "runs\\uc3\\baseline\\attempt_02"
+    },
+    {
+      "candidate_id": "cand_03",
+      "mode": "baseline",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\baseline\\attempt_02\\cand_03\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 2,
+      "attempt_dir": "runs\\uc3\\baseline\\attempt_02"
+    }
+  ],
+  "hitl": [
+    {
+      "candidate_id": "cand_01",
+      "mode": "hitl",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\hitl\\attempt_00\\cand_01\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 0,
+      "attempt_dir": "runs\\uc3\\hitl\\attempt_00"
+    },
+    {
+      "candidate_id": "cand_02",
+      "mode": "hitl",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\hitl\\attempt_00\\cand_02\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 0,
+      "attempt_dir": "runs\\uc3\\hitl\\attempt_00"
+    },
+    {
+      "candidate_id": "cand_03",
+      "mode": "hitl",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\hitl\\attempt_00\\cand_03\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 0,
+      "attempt_dir": "runs\\uc3\\hitl\\attempt_00"
+    },
+    {
+      "candidate_id": "cand_01",
+      "mode": "hitl",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\hitl\\attempt_01\\cand_01\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 1,
+      "attempt_dir": "runs\\uc3\\hitl\\attempt_01"
+    },
+    {
+      "candidate_id": "cand_02",
+      "mode": "hitl",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\hitl\\attempt_01\\cand_02\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 1,
+      "attempt_dir": "runs\\uc3\\hitl\\attempt_01"
+    },
+    {
+      "candidate_id": "cand_03",
+      "mode": "hitl",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\hitl\\attempt_01\\cand_03\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 1,
+      "attempt_dir": "runs\\uc3\\hitl\\attempt_01"
+    },
+    {
+      "candidate_id": "cand_01",
+      "mode": "hitl",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\hitl\\attempt_02\\cand_01\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 2,
+      "attempt_dir": "runs\\uc3\\hitl\\attempt_02"
+    },
+    {
+      "candidate_id": "cand_02",
+      "mode": "hitl",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\hitl\\attempt_02\\cand_02\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 2,
+      "attempt_dir": "runs\\uc3\\hitl\\attempt_02"
+    },
+    {
+      "candidate_id": "cand_03",
+      "mode": "hitl",
+      "use_case": "uc3",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 16,
+        "has_end": true,
+        "has_ac": false,
+        "has_tran": true,
+        "has_meas": true,
+        "component_counts": {
+          "V": 2,
+          "R": 3,
+          "S": 1,
+          "L": 1,
+          "C": 2
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "Vpulse",
+          "S1",
+          "Rload",
+          "Lload",
+          "Cpar",
+          "Rsnub",
+          "Cs"
+        ],
+        "node_names": [
+          "0",
+          "ctrl",
+          "in",
+          "n1",
+          "snub_mid",
+          "sw"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc3\\hitl\\attempt_02\\cand_03\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [],
+        "errors": [
+          "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+        ]
+      },
+      "meas_raw": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "metric_enhancements": [
+        "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+      ],
+      "meas": {
+        "vpeak_switch": 23.99804,
+        "settling_proxy": 23.99611,
+        "snubber_energy": 0.01
+      },
+      "required_measurements_ok": true,
+      "nominal": {
+        "ok": true,
+        "criteria_results": [
+          {
+            "metric": "vpeak_switch",
+            "operator": "<=",
+            "target": 60.0,
+            "actual": 23.99804,
+            "passed": true,
+            "reason": null,
+            "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+          },
+          {
+            "metric": "snubber_energy",
+            "operator": "<=",
+            "target": 0.02,
+            "actual": 0.01,
+            "passed": true,
+            "reason": null,
+            "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+          },
+          {
+            "metric": "settling_proxy",
+            "operator": "<=",
+            "target": 40.0,
+            "actual": 23.99611,
+            "passed": true,
+            "reason": null,
+            "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+          }
+        ],
+        "checked_count": 3
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 2,
+      "attempt_dir": "runs\\uc3\\hitl\\attempt_02"
+    }
+  ]
+}

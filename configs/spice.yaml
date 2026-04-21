@@ -1,0 +1,96 @@
+spice:
+  simulator: "ngspice"
+  version_target: "41"
+  execution_mode: "batch"
+  batch_command_template: "ngspice -b -o {log_file} {netlist_file}"
+  working_directory: "."
+
+  timeouts:
+    nominal_run_seconds: 60
+    sweep_run_seconds: 120
+
+  file_handling:
+    netlist_extension: ".cir"
+    log_extension: ".log"
+    save_log_files: true
+    save_generated_netlists: true
+    overwrite_existing_outputs: true
+
+  execution:
+    require_exit_code_zero: false
+    treat_stderr_as_failure: false
+    continue_if_measurements_present: true
+
+  parsing:
+    parse_meas_from_log: true
+    parse_warnings: true
+    parse_errors: true
+    accepted_measure_prefixes:
+      - "Measurement:"
+      - "measure"
+    detect_common_failure_patterns:
+      - "Error:"
+      - "fatal"
+      - "No such vector"
+      - "no simulations run"
+      - "unknown parameter"
+      - "can't parse"
+      - "missing .end"
+      - "singular matrix"
+
+  nominal_evaluation:
+    require_all_declared_measurements: true
+    allow_extra_measurements: true
+    fail_if_required_measurement_missing: true
+
+  sweep_evaluation:
+    enabled: true
+    execution_strathitly: "external_loop"
+    save_each_sweep_log: true
+    save_each_sweep_netlist: false
+    fail_fast_on_first_sweep_failure: false
+    require_all_sweep_measurements: true
+
+  supported_analyses:
+    - "ac"
+    - "tran"
+
+  ac:
+    require_grid_alignment_for_at_measurements: true
+    enforce_explicit_ac_source: true
+    default_ac_magnitude: 1.0
+
+  transient:
+    require_explicit_time_window_for_meas: true
+    require_controlled_switch_definition: true
+
+  robustness:
+    use_spec_defined_sweeps: true
+    parameter_substitution_mode: "text_replace"
+    supported_variation_modes:
+      - "relative_percent"
+      - "absolute_value"
+
+  diagnostics:
+    classify_common_issues: true
+    issue_map:
+      ac_grid_mismatch: "E-GRID-01"
+      non_portable_control_syntax: "E-CTRL-01"
+      unsupported_directive: "E-TOOL-01"
+      ambiguous_measurement: "E-MEAS-01"
+      incorrect_port_definition: "E-PORT-01"
+      sign_convention_issue: "E-SIGN-01"
+      parameter_mutation_issue: "E-PARAM-01"
+
+  output:
+    nominal_measures_file: "measures_nominal.json"
+    sweep_measures_file: "measures_sweep.json"
+    parsed_log_file: "parsed_spice_log.json"
+
+paper_alignment:
+  report_simulator_name: true
+  report_version_target: true
+  report_batch_command_template: true
+  report_batch_mode_execution: true
+  report_meas_based_extraction: true
+  report_external_sweep_strathitly: true

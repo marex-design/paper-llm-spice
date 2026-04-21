@@ -1,0 +1,236 @@
+{
+  "id": "uc3",
+  "title": "RC Snubber Design for Transient Over-Voltage Mitigation in an RL Switching Circuit",
+  "short_name": "RC Snubber",
+  "category": "passive_circuit_design",
+  "analysis_domain": "time_domain",
+  "analysis_type": "transient",
+  "description": "Design and verify an RC snubber for transient over-voltage mitigation in a switched RL circuit. The generated circuit must be SPICE-simulatable, measurable through .meas directives, and evaluated under nominal and tolerance-aware conditions, while explicitly accounting for switching behavior, parasitic capacitance, and dissipated snubber energy.",
+  "objective": "Obtain an RC snubber configuration that reduces switching-node over-voltage during turn-off transients while keeping the dissipated snubber energy within acceptable limits.",
+  "llm_task": {
+    "task_type": "generate_spice_netlist",
+    "expected_output": "A valid ngspice-compatible netlist implementing a switched RL circuit with parasitic capacitance and an RC snubber, including transient analysis and .meas directives for peak voltage and dissipated snubber energy.",
+    "topology_hint": "Use a DC source feeding an RL load through an ideal switch, with a parasitic capacitance at the switching node and a series RC snubber connected across the switch or switching node according to a physically meaningful passive snubber topology.",
+    "design_variables": ["Rsnub", "Csnub"],
+    "fixed_elements": {
+      "Vdc_V": 24.0,
+      "Rload_ohm": 2.0,
+      "Lload_H": 0.01,
+      "Cpar_F": 5e-11
+    }
+  },
+  "circuit_constraints": {
+    "topology_class": "rc_snubber_rl_switching",
+    "source_model": {
+      "type": "dc_voltage_source",
+      "value_V": 24.0
+    },
+    "switch_model": {
+      "type": "ideal_voltage_controlled_switch",
+      "model_name": "SWMOD",
+      "parameters": {
+        "Ron_ohm": 0.001,
+        "Roff_ohm": 1000000.0,
+        "Vt_V": 0.5,
+        "Vh_V": 0.0
+      }
+    },
+    "control_signal": {
+      "type": "pulse",
+      "v1_V": 0.0,
+      "v2_V": 1.0,
+      "td_s": 0.0,
+      "tr_s": 1e-6,
+      "tf_s": 1e-6,
+      "pw_s": 1e-3,
+      "per_s": 2e-3
+    },
+    "load_model": {
+      "type": "series_rl_load",
+      "R_ohm": 2.0,
+      "L_H": 0.01
+    },
+    "parasitic_model": {
+      "type": "capacitor_to_ground",
+      "value_F": 5e-11
+    },
+    "allowed_components": ["R", "C", "L", "V", "S"],
+    "forbidden_features": [
+      "active_devices",
+      "dependent_sources",
+      "behavioral_sources",
+      "clamp_diodes",
+      "zener_clamps",
+      "transformers",
+      "subcircuits",
+      "non_passive_snubbers"
+    ]
+  },
+  "simulation": {
+    "simulator": "ngspice",
+    "required_directives": [".tran", ".meas"],
+    "transient_analysis": {
+      "t_step_s": 1e-6,
+      "t_stop_s": 3e-3
+    },
+    "observation_window": {
+      "t_start_s": 9e-4,
+      "t_end_s": 3e-3
+    },
+    "reference_nodes": {
+      "source_node": "vin",
+      "switch_node": "sw",
+      "load_node": "n1",
+      "ground_node": "0"
+    },
+    "derived_quantities": [
+      "vsnub",
+      "isnub",
+      "psnub"
+    ]
+  },
+  "measurements": [
+    {
+      "name": "vpeak_switch",
+      "kind": "transient_max",
+      "expression": "v(sw)",
+      "from_s": 9e-4,
+      "to_s": 3e-3,
+      "description": "Maximum voltage observed at the switching node during the turn-off transient window."
+    },
+    {
+      "name": "snubber_energy",
+      "kind": "transient_integral",
+      "expression": "psnub",
+      "from_s": 9e-4,
+      "to_s": 3e-3,
+      "description": "Energy dissipated by the snubber during the transient observation window."
+    },
+    {
+      "name": "settling_proxy",
+      "kind": "transient_max_after_peak",
+      "expression": "v(sw)",
+      "from_s": 1.5e-3,
+      "to_s": 3e-3,
+      "description": "Late-time residual maximum voltage used as a proxy for insufficient damping or persistent ringing."
+    }
+  ],
+  "nominal_acceptance_criteria": {
+    "all_of": [
+      {
+        "metric": "vpeak_switch",
+        "operator": "<=",
+        "value": 60.0,
+        "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+      },
+      {
+        "metric": "snubber_energy",
+        "operator": "<=",
+        "value": 0.02,
+        "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+      },
+      {
+        "metric": "settling_proxy",
+        "operator": "<=",
+        "value": 40.0,
+        "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+      }
+    ]
+  },
+  "robustness": {
+    "enabled": true,
+    "method": "parameter_sweep",
+    "description": "Tolerance-aware robustness assessment under snubber component variations.",
+    "swept_parameters": [
+      {
+        "name": "Rsnub",
+        "variation_mode": "relative_percent",
+        "values_percent": [-20, -10, 0, 10, 20]
+      },
+      {
+        "name": "Csnub",
+        "variation_mode": "relative_percent",
+        "values_percent": [-20, -10, 0, 10, 20]
+      }
+    ],
+    "robust_acceptance_rule": "All nominal acceptance criteria must remain satisfied for every sweep combination."
+  },
+  "decision_protocol": {
+    "run_definition": "The generated netlist parses and executes successfully in ngspice, and all required transient measurements are extractable.",
+    "pass_definition": "The design satisfies all nominal acceptance criteria over the specified transient observation window.",
+    "robust_pass_definition": "The design satisfies all nominal acceptance criteria under all robustness sweep conditions.",
+    "infeasibility_note": "If multiple valid executable candidates consistently fail nominal acceptance despite physically meaningful topologies and measurable outputs, the framework may label the use case as specification-incompatible with the chosen circuit class."
+  },
+  "sanity_checks": {
+    "required_nodes": ["vin", "sw", "n1", "0"],
+    "required_elements": [
+      "dc_source",
+      "controlled_switch",
+      "rl_load",
+      "parasitic_capacitance",
+      "snubber_resistance",
+      "snubber_capacitance"
+    ],
+    "required_measurements": [
+      "vpeak_switch",
+      "snubber_energy"
+    ],
+    "checks": [
+      "The switch model must be explicitly defined and connected consistently with the control signal.",
+      "The RL load must be explicitly present with Rload = 2 ohms and Lload = 10 mH.",
+      "The parasitic capacitance must be explicitly present at the switching node.",
+      "The snubber must be implemented as a passive RC network.",
+      "The transient window must include the turn-off event and the post-switching ringing interval.",
+      "Peak-voltage and energy measurements must use consistent node names and observation windows."
+    ]
+  },
+  "primary_selection_metric": {
+    "name": "vpeak_switch",
+    "goal": "minimize",
+    "description": "Among passing candidates, prefer the design with the lowest switching-node peak voltage."
+  },
+  "secondary_selection_metrics": [
+    {
+      "name": "snubber_energy",
+      "goal": "minimize",
+      "description": "Prefer candidates that reduce the transient peak with lower dissipated energy."
+    }
+  ],
+  "expected_failure_modes": [
+    "Transient simulation runs but no acceptable over-voltage reduction is achieved.",
+    "Snubber topology is physically meaningful but fails the nominal voltage limit.",
+    "Peak-voltage measurement is taken on the wrong node.",
+    "Energy expression is inconsistent with the actual snubber branch current or voltage.",
+    "The transient window misses the relevant turn-off event.",
+    "Nominal pass achieved but robustness failure under Rsnub or Csnub tolerance.",
+    "Specification is incompatible with the passive RC snubber circuit class under the imposed constraints."
+  ],
+  "reporting": {
+    "report_metrics": [
+      "vpeak_switch",
+      "snubber_energy",
+      "settling_proxy"
+    ],
+    "report_outcomes": [
+      "RUN",
+      "PASS",
+      "ROBUST_PASS",
+      "SPEC_INFEASIBLE"
+    ]
+  },
+  "metadata": {
+    "version": "2.0",
+    "author_role": "framework_input_specification",
+    "paper_alignment": "Reproducible SPICE-based verification of LLM-generated transient protection networks"
+  },
+  "metric_fallback": {
+    "snubber_energy": {
+      "allow_approximation_from_power": true,
+      "description": "If snubber_energy measurement fails due to INTEG syntax issues, attempt to derive from average power or use alternative integration method."
+    },
+    "vpeak_switch": {
+      "node_aliases": ["sw", "n1", "switch_node", "switching_node", "drain"],
+      "description": "Accept peak voltage measurement from any recognized switching node alias."
+    }
+  }
+}

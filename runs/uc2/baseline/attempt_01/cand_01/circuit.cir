@@ -1,0 +1,12 @@
+* L-Network Impedance Match
+V1 src 0 ac 1
+Rs src in 50
+L1 in out 13.78uH
+C1 out 0 1.378nF
+Rload out 0 200
+.ac dec 100 500k 1.5MEG
+.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6
+.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6
+.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6
+.meas ac gamma_mag PARAM 'abs((zin_real + (0,1)*zin_imag - 50)/(zin_real + (0,1)*zin_imag + 50))'
+.end

@@ -1,0 +1,23 @@
+Return only one SPICE netlist.
+
+Output rules:
+- Do not include explanations before the netlist.
+- Do not include explanations after the netlist.
+- Do not include markdown headings.
+- Do not include bullet points.
+- Do not include pseudo-code.
+- Do not include JSON.
+- Do not include LaTeX.
+- Do not include alternative designs.
+- Do not wrap the answer in triple backticks unless explicitly requested by the user.
+
+The output must contain:
+- a title line as a SPICE comment,
+- the circuit elements,
+- the required simulation directives,
+- the required .meas directives,
+- the final .end line.
+
+The output must be directly saveable as a .cir file and executable by ngspice in batch mode.
+
+Use standard SPICE syntax and keep the netlist self-contained.

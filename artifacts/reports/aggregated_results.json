@@ -1,0 +1,2173 @@
+[
+  {
+    "case": "uc1",
+    "baseline": {
+      "total_candidates": 3,
+      "counts": {
+        "FAIL": 0,
+        "RUN": 0,
+        "PASS": 3,
+        "ROBUST_PASS": 3,
+        "SPEC_INFEASIBLE": 0
+      },
+      "total_pass": 6,
+      "best_candidate": {
+        "candidate_id": "cand_01",
+        "mode": "baseline",
+        "use_case": "uc1",
+        "llm_success": true,
+        "backend": "deepseek",
+        "model": "deepseek-chat",
+        "raw_text": "* Passive RC low-pass filter\nVin in 0 AC 1\nRs in out 1k\nRload out 0 100k\nC out 0 350n\n.ac lin 2000 10 20000\n.meas ac gain_200Hz_mag FIND v(out) AT=200\n.meas ac gain_2kHz_mag FIND v(out) AT=2000\n.control\nrun\n.endc\n.end",
+        "llm_error": null,
+        "final_decision": "ROBUST_PASS",
+        "metadata": {
+          "line_count": 9,
+          "has_end": true,
+          "has_ac": true,
+          "has_tran": false,
+          "has_meas": true,
+          "component_counts": {
+            "V": 1,
+            "R": 2,
+            "C": 1
+          },
+          "component_names": [
+            "Vin",
+            "Rs",
+            "Rload",
+            "C"
+          ],
+          "node_names": [
+            "0",
+            "in",
+            "out"
+          ]
+        },
+        "sanity": {
+          "ok": true,
+          "results_by_family": [
+            {
+              "rule_family": "electrical",
+              "ok": true,
+              "issues": []
+            },
+            {
+              "rule_family": "measurement",
+              "ok": true,
+              "issues": []
+            },
+            {
+              "rule_family": "grid",
+              "ok": true,
+              "issues": []
+            }
+          ],
+          "issues": [],
+          "issue_count": 0
+        },
+        "simulation": {
+          "success": true,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "log_path": "runs\\uc1\\baseline\\attempt_00\\cand_01\\output.log"
+        },
+        "parsed_log": {
+          "has_error": false,
+          "ran_simulation": true,
+          "warnings": [],
+          "errors": []
+        },
+        "meas_raw": {
+          "gain_200hz_mag": 0.8322729,
+          "gain_2khz_mag": 0.04959605,
+          "gain_200hz_db": -1.5946849277680764,
+          "gain_2khz_db": -26.09105821677444
+        },
+        "metric_enhancements": [
+          "Computed gain_200hz_db = -1.5947 dB from gain_200hz_mag = 0.832273",
+          "Computed gain_2khz_db = -26.0911 dB from gain_2khz_mag = 0.049596"
+        ],
+        "meas": {
+          "gain_200hz_mag": 0.8322729,
+          "gain_2khz_mag": 0.04959605,
+          "gain_200hz_db": -1.5946849277680764,
+          "gain_2khz_db": -26.09105821677444,
+          "gain_200Hz_db": -1.5946849277680764,
+          "gain_2kHz_db": -26.09105821677444
+        },
+        "required_measurements_ok": true,
+        "nominal": {
+          "ok": true,
+          "criteria_results": [
+            {
+              "metric": "gain_200Hz_db",
+              "operator": ">=",
+              "target": -3.5,
+              "actual": -1.5946849277680764,
+              "passed": true,
+              "reason": null,
+              "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+            },
+            {
+              "metric": "gain_200Hz_db",
+              "operator": "<=",
+              "target": 0.0,
+              "actual": -1.5946849277680764,
+              "passed": true,
+              "reason": null,
+              "rationale": "The passive filter must not exhibit gain above 0 dB."
+            },
+            {
+              "metric": "gain_2kHz_db",
+              "operator": "<=",
+              "target": -20.0,
+              "actual": -26.09105821677444,
+              "passed": true,
+              "reason": null,
+              "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+            }
+          ],
+          "checked_count": 3
+        },
+        "robustness": {
+          "ok": true,
+          "sweep_results": [
+            {
+              "variation": {
+                "C": 0.8,
+                "Rs": 0.9
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 0.8,
+                "Rs": 1.0
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 0.8,
+                "Rs": 1.1
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 0.9,
+                "Rs": 0.9
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 0.9,
+                "Rs": 1.0
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 0.9,
+                "Rs": 1.1
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.0,
+                "Rs": 0.9
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.0,
+                "Rs": 1.0
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.0,
+                "Rs": 1.1
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.1,
+                "Rs": 0.9
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.1,
+                "Rs": 1.0
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.1,
+                "Rs": 1.1
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.2,
+                "Rs": 0.9
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.2,
+                "Rs": 1.0
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.2,
+                "Rs": 1.1
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            }
+          ],
+          "passed_count": 15,
+          "failed_count": 0,
+          "total_count": 15
+        },
+        "decision": {
+          "label": "ROBUST_PASS",
+          "reason": "Nominal and robustness criteria were satisfied."
+        },
+        "attempt": 0,
+        "attempt_dir": "runs\\uc1\\baseline\\attempt_00"
+      }
+    },
+    "eg": {
+      "total_candidates": 3,
+      "counts": {
+        "FAIL": 0,
+        "RUN": 0,
+        "PASS": 3,
+        "ROBUST_PASS": 3,
+        "SPEC_INFEASIBLE": 0
+      },
+      "total_pass": 6,
+      "best_candidate": {
+        "candidate_id": "cand_01",
+        "mode": "hitl",
+        "use_case": "uc1",
+        "llm_success": true,
+        "backend": "deepseek",
+        "model": "deepseek-chat",
+        "raw_text": "* RC low-pass filter with C=350nF\nVin in 0 AC 1\nRs in out 1k\nC out 0 350nF\nRload out 0 100k\n.ac lin 2000 10 20000\n.meas ac gain_200Hz_mag FIND v(out) AT=200\n.meas ac gain_2kHz_mag FIND v(out) AT=2000\n.control\nrun\n.endc\n.end",
+        "llm_error": null,
+        "final_decision": "ROBUST_PASS",
+        "metadata": {
+          "line_count": 9,
+          "has_end": true,
+          "has_ac": true,
+          "has_tran": false,
+          "has_meas": true,
+          "component_counts": {
+            "V": 1,
+            "R": 2,
+            "C": 1
+          },
+          "component_names": [
+            "Vin",
+            "Rs",
+            "C",
+            "Rload"
+          ],
+          "node_names": [
+            "0",
+            "in",
+            "out"
+          ]
+        },
+        "sanity": {
+          "ok": true,
+          "results_by_family": [
+            {
+              "rule_family": "electrical",
+              "ok": true,
+              "issues": []
+            },
+            {
+              "rule_family": "measurement",
+              "ok": true,
+              "issues": []
+            },
+            {
+              "rule_family": "grid",
+              "ok": true,
+              "issues": []
+            }
+          ],
+          "issues": [],
+          "issue_count": 0
+        },
+        "simulation": {
+          "success": true,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "log_path": "runs\\uc1\\hitl\\attempt_00\\cand_01\\output.log"
+        },
+        "parsed_log": {
+          "has_error": false,
+          "ran_simulation": true,
+          "warnings": [],
+          "errors": []
+        },
+        "meas_raw": {
+          "gain_200hz_mag": 0.8322729,
+          "gain_2khz_mag": 0.04959605,
+          "gain_200hz_db": -1.5946849277680764,
+          "gain_2khz_db": -26.09105821677444
+        },
+        "metric_enhancements": [
+          "Computed gain_200hz_db = -1.5947 dB from gain_200hz_mag = 0.832273",
+          "Computed gain_2khz_db = -26.0911 dB from gain_2khz_mag = 0.049596"
+        ],
+        "meas": {
+          "gain_200hz_mag": 0.8322729,
+          "gain_2khz_mag": 0.04959605,
+          "gain_200hz_db": -1.5946849277680764,
+          "gain_2khz_db": -26.09105821677444,
+          "gain_200Hz_db": -1.5946849277680764,
+          "gain_2kHz_db": -26.09105821677444
+        },
+        "required_measurements_ok": true,
+        "nominal": {
+          "ok": true,
+          "criteria_results": [
+            {
+              "metric": "gain_200Hz_db",
+              "operator": ">=",
+              "target": -3.5,
+              "actual": -1.5946849277680764,
+              "passed": true,
+              "reason": null,
+              "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+            },
+            {
+              "metric": "gain_200Hz_db",
+              "operator": "<=",
+              "target": 0.0,
+              "actual": -1.5946849277680764,
+              "passed": true,
+              "reason": null,
+              "rationale": "The passive filter must not exhibit gain above 0 dB."
+            },
+            {
+              "metric": "gain_2kHz_db",
+              "operator": "<=",
+              "target": -20.0,
+              "actual": -26.09105821677444,
+              "passed": true,
+              "reason": null,
+              "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+            }
+          ],
+          "checked_count": 3
+        },
+        "robustness": {
+          "ok": true,
+          "sweep_results": [
+            {
+              "variation": {
+                "C": 0.8,
+                "Rs": 0.9
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 0.8,
+                "Rs": 1.0
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 0.8,
+                "Rs": 1.1
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 0.9,
+                "Rs": 0.9
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 0.9,
+                "Rs": 1.0
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 0.9,
+                "Rs": 1.1
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.0,
+                "Rs": 0.9
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.0,
+                "Rs": 1.0
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.0,
+                "Rs": 1.1
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.1,
+                "Rs": 0.9
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.1,
+                "Rs": 1.0
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.1,
+                "Rs": 1.1
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.2,
+                "Rs": 0.9
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.2,
+                "Rs": 1.0
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            },
+            {
+              "variation": {
+                "C": 1.2,
+                "Rs": 1.1
+              },
+              "success": true,
+              "passed": true,
+              "reason": null,
+              "criteria": {
+                "ok": true,
+                "criteria_results": [
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": ">=",
+                    "target": -3.5,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+                  },
+                  {
+                    "metric": "gain_200Hz_db",
+                    "operator": "<=",
+                    "target": 0.0,
+                    "actual": -1.5946849277680764,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The passive filter must not exhibit gain above 0 dB."
+                  },
+                  {
+                    "metric": "gain_2kHz_db",
+                    "operator": "<=",
+                    "target": -20.0,
+                    "actual": -26.09105821677444,
+                    "passed": true,
+                    "reason": null,
+                    "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+                  }
+                ],
+                "checked_count": 3
+              }
+            }
+          ],
+          "passed_count": 15,
+          "failed_count": 0,
+          "total_count": 15
+        },
+        "decision": {
+          "label": "ROBUST_PASS",
+          "reason": "Nominal and robustness criteria were satisfied."
+        },
+        "attempt": 0,
+        "attempt_dir": "runs\\uc1\\hitl\\attempt_00"
+      }
+    }
+  },
+  {
+    "case": "uc2",
+    "baseline": {
+      "total_candidates": 9,
+      "counts": {
+        "FAIL": 9,
+        "RUN": 0,
+        "PASS": 0,
+        "ROBUST_PASS": 0,
+        "SPEC_INFEASIBLE": 0
+      },
+      "total_pass": 0,
+      "best_candidate": {
+        "candidate_id": "cand_01",
+        "mode": "baseline",
+        "use_case": "uc2",
+        "llm_success": true,
+        "backend": "deepseek",
+        "model": "deepseek-chat",
+        "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.end",
+        "llm_error": null,
+        "final_decision": "FAIL",
+        "metadata": {
+          "line_count": 11,
+          "has_end": true,
+          "has_ac": true,
+          "has_tran": false,
+          "has_meas": true,
+          "component_counts": {
+            "V": 1,
+            "R": 2,
+            "L": 1,
+            "C": 1
+          },
+          "component_names": [
+            "V1",
+            "Rs",
+            "L1",
+            "C1",
+            "Rload"
+          ],
+          "node_names": [
+            "0",
+            "in",
+            "out",
+            "src"
+          ]
+        },
+        "sanity": {
+          "ok": false,
+          "results_by_family": [
+            {
+              "rule_family": "electrical",
+              "ok": true,
+              "issues": []
+            },
+            {
+              "rule_family": "measurement",
+              "ok": false,
+              "issues": [
+                {
+                  "code": "E-MEAS-01",
+                  "message": "Required measurement 'gamma_mag' is missing."
+                }
+              ]
+            },
+            {
+              "rule_family": "grid",
+              "ok": true,
+              "issues": []
+            }
+          ],
+          "issues": [
+            {
+              "code": "E-MEAS-01",
+              "message": "Required measurement 'gamma_mag' is missing."
+            }
+          ],
+          "issue_count": 1
+        },
+        "simulation": {
+          "success": true,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "log_path": "runs\\uc2\\baseline\\attempt_00\\cand_01\\output.log"
+        },
+        "parsed_log": {
+          "has_error": true,
+          "ran_simulation": true,
+          "warnings": [
+            "Warning: can't parse 'im': ignored"
+          ],
+          "errors": [
+            "Error: no data saved for A.C. Small signal analysis; analysis not run"
+          ]
+        },
+        "meas_raw": {},
+        "metric_enhancements": [],
+        "meas": {},
+        "required_measurements_ok": false,
+        "nominal": {
+          "ok": false,
+          "criteria_results": [
+            {
+              "metric": "zin_real",
+              "operator": ">=",
+              "target": 45.0,
+              "actual": null,
+              "passed": false,
+              "reason": "Metric 'zin_real' is missing or non-numeric.",
+              "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+            },
+            {
+              "metric": "zin_real",
+              "operator": "<=",
+              "target": 55.0,
+              "actual": null,
+              "passed": false,
+              "reason": "Metric 'zin_real' is missing or non-numeric.",
+              "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+            },
+            {
+              "metric": "zin_imag",
+              "operator": ">=",
+              "target": -5.0,
+              "actual": null,
+              "passed": false,
+              "reason": "Metric 'zin_imag' is missing or non-numeric.",
+              "rationale": "The input impedance should be approximately real at the target frequency."
+            },
+            {
+              "metric": "zin_imag",
+              "operator": "<=",
+              "target": 5.0,
+              "actual": null,
+              "passed": false,
+              "reason": "Metric 'zin_imag' is missing or non-numeric.",
+              "rationale": "The input impedance should be approximately real at the target frequency."
+            },
+            {
+              "metric": "gamma_mag",
+              "operator": "<=",
+              "target": 0.1,
+              "actual": null,
+              "passed": false,
+              "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+              "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+            }
+          ],
+          "checked_count": 5
+        },
+        "robustness": null,
+        "decision": {
+          "label": "FAIL",
+          "reason": "Sanity checks reported issues and simulation did not complete successfully."
+        },
+        "attempt": 0,
+        "attempt_dir": "runs\\uc2\\baseline\\attempt_00"
+      }
+    },
+    "eg": {
+      "total_candidates": 9,
+      "counts": {
+        "FAIL": 9,
+        "RUN": 0,
+        "PASS": 0,
+        "ROBUST_PASS": 0,
+        "SPEC_INFEASIBLE": 0
+      },
+      "total_pass": 0,
+      "best_candidate": {
+        "candidate_id": "cand_01",
+        "mode": "hitl",
+        "use_case": "uc2",
+        "llm_success": true,
+        "backend": "deepseek",
+        "model": "deepseek-chat",
+        "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.end",
+        "llm_error": null,
+        "final_decision": "FAIL",
+        "metadata": {
+          "line_count": 11,
+          "has_end": true,
+          "has_ac": true,
+          "has_tran": false,
+          "has_meas": true,
+          "component_counts": {
+            "V": 1,
+            "R": 2,
+            "L": 1,
+            "C": 1
+          },
+          "component_names": [
+            "V1",
+            "Rs",
+            "L1",
+            "C1",
+            "Rload"
+          ],
+          "node_names": [
+            "0",
+            "in",
+            "out",
+            "src"
+          ]
+        },
+        "sanity": {
+          "ok": false,
+          "results_by_family": [
+            {
+              "rule_family": "electrical",
+              "ok": true,
+              "issues": []
+            },
+            {
+              "rule_family": "measurement",
+              "ok": false,
+              "issues": [
+                {
+                  "code": "E-MEAS-01",
+                  "message": "Required measurement 'gamma_mag' is missing."
+                }
+              ]
+            },
+            {
+              "rule_family": "grid",
+              "ok": true,
+              "issues": []
+            }
+          ],
+          "issues": [
+            {
+              "code": "E-MEAS-01",
+              "message": "Required measurement 'gamma_mag' is missing."
+            }
+          ],
+          "issue_count": 1
+        },
+        "simulation": {
+          "success": true,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "log_path": "runs\\uc2\\hitl\\attempt_00\\cand_01\\output.log"
+        },
+        "parsed_log": {
+          "has_error": true,
+          "ran_simulation": true,
+          "warnings": [
+            "Warning: can't parse 'im': ignored"
+          ],
+          "errors": [
+            "Error: no data saved for A.C. Small signal analysis; analysis not run"
+          ]
+        },
+        "meas_raw": {},
+        "metric_enhancements": [],
+        "meas": {},
+        "required_measurements_ok": false,
+        "nominal": {
+          "ok": false,
+          "criteria_results": [
+            {
+              "metric": "zin_real",
+              "operator": ">=",
+              "target": 45.0,
+              "actual": null,
+              "passed": false,
+              "reason": "Metric 'zin_real' is missing or non-numeric.",
+              "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+            },
+            {
+              "metric": "zin_real",
+              "operator": "<=",
+              "target": 55.0,
+              "actual": null,
+              "passed": false,
+              "reason": "Metric 'zin_real' is missing or non-numeric.",
+              "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+            },
+            {
+              "metric": "zin_imag",
+              "operator": ">=",
+              "target": -5.0,
+              "actual": null,
+              "passed": false,
+              "reason": "Metric 'zin_imag' is missing or non-numeric.",
+              "rationale": "The input impedance should be approximately real at the target frequency."
+            },
+            {
+              "metric": "zin_imag",
+              "operator": "<=",
+              "target": 5.0,
+              "actual": null,
+              "passed": false,
+              "reason": "Metric 'zin_imag' is missing or non-numeric.",
+              "rationale": "The input impedance should be approximately real at the target frequency."
+            },
+            {
+              "metric": "gamma_mag",
+              "operator": "<=",
+              "target": 0.1,
+              "actual": null,
+              "passed": false,
+              "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+              "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+            }
+          ],
+          "checked_count": 5
+        },
+        "robustness": null,
+        "decision": {
+          "label": "FAIL",
+          "reason": "Sanity checks reported issues and simulation did not complete successfully."
+        },
+        "attempt": 0,
+        "attempt_dir": "runs\\uc2\\hitl\\attempt_00"
+      }
+    }
+  },
+  {
+    "case": "uc3",
+    "baseline": {
+      "total_candidates": 9,
+      "counts": {
+        "FAIL": 9,
+        "RUN": 0,
+        "PASS": 0,
+        "ROBUST_PASS": 0,
+        "SPEC_INFEASIBLE": 0
+      },
+      "total_pass": 0,
+      "best_candidate": {
+        "candidate_id": "cand_01",
+        "mode": "baseline",
+        "use_case": "uc3",
+        "llm_success": true,
+        "backend": "deepseek",
+        "model": "deepseek-chat",
+        "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+        "llm_error": null,
+        "final_decision": "FAIL",
+        "metadata": {
+          "line_count": 16,
+          "has_end": true,
+          "has_ac": false,
+          "has_tran": true,
+          "has_meas": true,
+          "component_counts": {
+            "V": 2,
+            "R": 3,
+            "S": 1,
+            "L": 1,
+            "C": 2
+          },
+          "component_names": [
+            "V1",
+            "Rs",
+            "Vpulse",
+            "S1",
+            "Rload",
+            "Lload",
+            "Cpar",
+            "Rsnub",
+            "Cs"
+          ],
+          "node_names": [
+            "0",
+            "ctrl",
+            "in",
+            "n1",
+            "snub_mid",
+            "sw"
+          ]
+        },
+        "sanity": {
+          "ok": true,
+          "results_by_family": [
+            {
+              "rule_family": "electrical",
+              "ok": true,
+              "issues": []
+            },
+            {
+              "rule_family": "measurement",
+              "ok": true,
+              "issues": []
+            },
+            {
+              "rule_family": "grid",
+              "ok": true,
+              "issues": []
+            }
+          ],
+          "issues": [],
+          "issue_count": 0
+        },
+        "simulation": {
+          "success": true,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "log_path": "runs\\uc3\\baseline\\attempt_00\\cand_01\\output.log"
+        },
+        "parsed_log": {
+          "has_error": true,
+          "ran_simulation": true,
+          "warnings": [],
+          "errors": [
+            "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+          ]
+        },
+        "meas_raw": {
+          "vpeak_switch": 23.99804,
+          "settling_proxy": 23.99611,
+          "snubber_energy": 0.01
+        },
+        "metric_enhancements": [
+          "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+        ],
+        "meas": {
+          "vpeak_switch": 23.99804,
+          "settling_proxy": 23.99611,
+          "snubber_energy": 0.01
+        },
+        "required_measurements_ok": true,
+        "nominal": {
+          "ok": true,
+          "criteria_results": [
+            {
+              "metric": "vpeak_switch",
+              "operator": "<=",
+              "target": 60.0,
+              "actual": 23.99804,
+              "passed": true,
+              "reason": null,
+              "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+            },
+            {
+              "metric": "snubber_energy",
+              "operator": "<=",
+              "target": 0.02,
+              "actual": 0.01,
+              "passed": true,
+              "reason": null,
+              "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+            },
+            {
+              "metric": "settling_proxy",
+              "operator": "<=",
+              "target": 40.0,
+              "actual": 23.99611,
+              "passed": true,
+              "reason": null,
+              "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+            }
+          ],
+          "checked_count": 3
+        },
+        "robustness": null,
+        "decision": {
+          "label": "FAIL",
+          "reason": "Simulation failed or did not run successfully."
+        },
+        "attempt": 0,
+        "attempt_dir": "runs\\uc3\\baseline\\attempt_00"
+      }
+    },
+    "eg": {
+      "total_candidates": 9,
+      "counts": {
+        "FAIL": 9,
+        "RUN": 0,
+        "PASS": 0,
+        "ROBUST_PASS": 0,
+        "SPEC_INFEASIBLE": 0
+      },
+      "total_pass": 0,
+      "best_candidate": {
+        "candidate_id": "cand_01",
+        "mode": "hitl",
+        "use_case": "uc3",
+        "llm_success": true,
+        "backend": "deepseek",
+        "model": "deepseek-chat",
+        "raw_text": "* RC Snubber Circuit\nV1 in 0 DC 24V\nRs in sw 0.1\n.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)\nVpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)\nS1 in sw ctrl 0 SWMOD\nRload sw n1 2\nLload n1 0 10mH\nCpar sw 0 50pF\nRsnub sw snub_mid 10\nCs snub_mid 0 10nF\n.tran 0.1u 3m UIC\n.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m\n.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m\n.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m\n.end",
+        "llm_error": null,
+        "final_decision": "FAIL",
+        "metadata": {
+          "line_count": 16,
+          "has_end": true,
+          "has_ac": false,
+          "has_tran": true,
+          "has_meas": true,
+          "component_counts": {
+            "V": 2,
+            "R": 3,
+            "S": 1,
+            "L": 1,
+            "C": 2
+          },
+          "component_names": [
+            "V1",
+            "Rs",
+            "Vpulse",
+            "S1",
+            "Rload",
+            "Lload",
+            "Cpar",
+            "Rsnub",
+            "Cs"
+          ],
+          "node_names": [
+            "0",
+            "ctrl",
+            "in",
+            "n1",
+            "snub_mid",
+            "sw"
+          ]
+        },
+        "sanity": {
+          "ok": true,
+          "results_by_family": [
+            {
+              "rule_family": "electrical",
+              "ok": true,
+              "issues": []
+            },
+            {
+              "rule_family": "measurement",
+              "ok": true,
+              "issues": []
+            },
+            {
+              "rule_family": "grid",
+              "ok": true,
+              "issues": []
+            }
+          ],
+          "issues": [],
+          "issue_count": 0
+        },
+        "simulation": {
+          "success": true,
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "log_path": "runs\\uc3\\hitl\\attempt_00\\cand_01\\output.log"
+        },
+        "parsed_log": {
+          "has_error": true,
+          "ran_simulation": true,
+          "warnings": [],
+          "errors": [
+            "Error: measure  snubber_energy  integ(TRIG) : no such vector as '(v(sw)-v(snub_mid))*i(cs)'"
+          ]
+        },
+        "meas_raw": {
+          "vpeak_switch": 23.99804,
+          "settling_proxy": 23.99611,
+          "snubber_energy": 0.01
+        },
+        "metric_enhancements": [
+          "Estimated snubber_energy = 0.010 (vpeak=24.0V < 60V, settling=24.0V < 40V)"
+        ],
+        "meas": {
+          "vpeak_switch": 23.99804,
+          "settling_proxy": 23.99611,
+          "snubber_energy": 0.01
+        },
+        "required_measurements_ok": true,
+        "nominal": {
+          "ok": true,
+          "criteria_results": [
+            {
+              "metric": "vpeak_switch",
+              "operator": "<=",
+              "target": 60.0,
+              "actual": 23.99804,
+              "passed": true,
+              "reason": null,
+              "rationale": "The peak switching-node voltage must remain below the over-voltage limit."
+            },
+            {
+              "metric": "snubber_energy",
+              "operator": "<=",
+              "target": 0.02,
+              "actual": 0.01,
+              "passed": true,
+              "reason": null,
+              "rationale": "The energy dissipated by the snubber must remain within an acceptable passive-loss budget."
+            },
+            {
+              "metric": "settling_proxy",
+              "operator": "<=",
+              "target": 40.0,
+              "actual": 23.99611,
+              "passed": true,
+              "reason": null,
+              "rationale": "Late-time residual over-voltage should remain limited, indicating acceptable damping of the transient."
+            }
+          ],
+          "checked_count": 3
+        },
+        "robustness": null,
+        "decision": {
+          "label": "FAIL",
+          "reason": "Simulation failed or did not run successfully."
+        },
+        "attempt": 0,
+        "attempt_dir": "runs\\uc3\\hitl\\attempt_00"
+      }
+    }
+  }
+]

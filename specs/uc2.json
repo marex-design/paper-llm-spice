@@ -1,0 +1,215 @@
+{
+  "id": "uc2",
+  "title": "L-Network Impedance Matching at 1 MHz",
+  "short_name": "L-Match Network",
+  "category": "passive_circuit_design",
+  "analysis_domain": "frequency_domain",
+  "analysis_type": "ac",
+  "description": "Design and verify a passive L-network for impedance matching between a 50-ohm source and a 200-ohm load at 1 MHz. The generated circuit must be SPICE-simulatable, measurable through .meas directives, and evaluated under nominal and tolerance-aware conditions.",
+  "objective": "Obtain a passive L-section matching network such that the input impedance seen by the source is approximately 50 ohms at 1 MHz and the reflection coefficient magnitude remains sufficiently small.",
+  "llm_task": {
+    "task_type": "generate_spice_netlist",
+    "expected_output": "A valid ngspice-compatible netlist implementing a passive L-network with explicit source and load, AC analysis, and .meas directives for input impedance and reflection coefficient metrics.",
+    "topology_hint": "Use a two-reactive-element L-section composed of one inductor and one capacitor between the source and the resistive load.",
+    "design_variables": ["L", "C"],
+    "fixed_elements": {
+      "Rs_ohm": 50,
+      "Rload_ohm": 200,
+      "f0_hz": 1000000
+    }
+  },
+  "circuit_constraints": {
+    "topology_class": "l_section_impedance_match",
+    "source_model": {
+      "type": "ac_voltage_source",
+      "ac_magnitude": 1.0
+    },
+    "load_model": {
+      "type": "resistive_load",
+      "value_ohm": 200
+    },
+    "source_resistance_ohm": 50,
+    "target_frequency_hz": 1000000,
+    "allowed_components": ["R", "L", "C", "V"],
+    "forbidden_features": [
+      "active_devices",
+      "dependent_sources",
+      "behavioral_sources",
+      "transformers",
+      "transmission_lines",
+      "subcircuits",
+      "ideal_matching_blocks"
+    ]
+  },
+  "simulation": {
+    "simulator": "ngspice",
+    "required_directives": [".ac", ".meas"],
+    "ac_analysis": {
+      "sweep_type": "lin",
+      "points": 4001,
+      "f_start_hz": 500000,
+      "f_stop_hz": 1500000
+    },
+    "reference_nodes": {
+      "input_node": "in",
+      "intermediate_node": "mid",
+      "output_node": "out",
+      "ground_node": "0"
+    },
+    "derived_quantities": ["zin", "gamma"]
+  },
+  "measurements": [
+    {
+      "name": "zin_real",
+      "kind": "derived_real_part",
+      "expression": "real(zin)",
+      "frequency_hz": 1000000,
+      "description": "Real part of the input impedance at 1 MHz."
+    },
+    {
+      "name": "zin_imag",
+      "kind": "derived_imag_part",
+      "expression": "imag(zin)",
+      "frequency_hz": 1000000,
+      "description": "Imaginary part of the input impedance at 1 MHz."
+    },
+    {
+      "name": "zin_mag",
+      "kind": "derived_magnitude",
+      "expression": "mag(zin)",
+      "frequency_hz": 1000000,
+      "description": "Magnitude of the input impedance at 1 MHz."
+    },
+    {
+      "name": "gamma_mag",
+      "kind": "derived_magnitude",
+      "expression": "mag(gamma)",
+      "frequency_hz": 1000000,
+      "description": "Magnitude of the reflection coefficient at 1 MHz."
+    }
+  ],
+  "nominal_acceptance_criteria": {
+    "all_of": [
+      {
+        "metric": "zin_real",
+        "operator": ">=",
+        "value": 45.0,
+        "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+      },
+      {
+        "metric": "zin_real",
+        "operator": "<=",
+        "value": 55.0,
+        "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+      },
+      {
+        "metric": "zin_imag",
+        "operator": ">=",
+        "value": -5.0,
+        "rationale": "The input impedance should be approximately real at the target frequency."
+      },
+      {
+        "metric": "zin_imag",
+        "operator": "<=",
+        "value": 5.0,
+        "rationale": "The input impedance should be approximately real at the target frequency."
+      },
+      {
+        "metric": "gamma_mag",
+        "operator": "<=",
+        "value": 0.1,
+        "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+      }
+    ]
+  },
+  "robustness": {
+    "enabled": true,
+    "method": "parameter_sweep",
+    "description": "Tolerance-aware robustness assessment under reactive component variations.",
+    "swept_parameters": [
+      {
+        "name": "L",
+        "variation_mode": "relative_percent",
+        "values_percent": [-10, 0, 10]
+      },
+      {
+        "name": "C",
+        "variation_mode": "relative_percent",
+        "values_percent": [-10, 0, 10]
+      }
+    ],
+    "robust_acceptance_rule": "All nominal acceptance criteria must remain satisfied for every sweep combination."
+  },
+  "decision_protocol": {
+    "run_definition": "The generated netlist parses and executes successfully in ngspice, and all required nominal measurements are extractable.",
+    "pass_definition": "The design satisfies all nominal acceptance criteria at 1 MHz.",
+    "robust_pass_definition": "The design satisfies all nominal acceptance criteria under all robustness sweep conditions."
+  },
+  "sanity_checks": {
+    "required_nodes": ["in", "mid", "out", "0"],
+    "required_elements": [
+      "source_voltage",
+      "source_resistance",
+      "inductor",
+      "capacitor",
+      "load_resistance"
+    ],
+    "required_measurements": [
+      "zin_real",
+      "zin_imag",
+      "gamma_mag"
+    ],
+    "checks": [
+      "Source resistance must be explicitly present and equal to 50 ohms.",
+      "Load resistance must be explicitly present and equal to 200 ohms.",
+      "The circuit must implement a passive two-reactive-element L-network.",
+      "The AC grid must include the target frequency of 1 MHz.",
+      "Input impedance must be computed with a consistent current sign convention.",
+      "The reflection coefficient must be defined with respect to the 50-ohm reference impedance."
+    ]
+  },
+  "primary_selection_metric": {
+    "name": "gamma_mag",
+    "goal": "minimize",
+    "description": "Among passing candidates, prefer the design with the smallest reflection coefficient magnitude at 1 MHz."
+  },
+  "secondary_selection_metrics": [
+    {
+      "name": "zin_imag_abs",
+      "goal": "minimize",
+      "description": "Prefer candidates whose input impedance is closer to purely real at 1 MHz."
+    }
+  ],
+  "expected_failure_modes": [
+    "Incorrect computation of input impedance due to current sign convention.",
+    "Reflection coefficient defined with the wrong reference impedance.",
+    "Target frequency not included on the AC simulation grid.",
+    "Use of an invalid or non-passive topology.",
+    "Nominal pass achieved but robustness failure under inductor or capacitor tolerance."
+  ],
+  "reporting": {
+    "report_metrics": [
+      "zin_real",
+      "zin_imag",
+      "zin_mag",
+      "gamma_mag"
+    ],
+    "report_outcomes": ["RUN", "PASS", "ROBUST_PASS"]
+  },
+  "metadata": {
+    "version": "2.0",
+    "author_role": "framework_input_specification",
+    "paper_alignment": "Reproducible SPICE-based verification of LLM-generated passive matching networks"
+  },
+  "metric_fallback": {
+    "impedance": {
+      "imag_threshold_for_mag_fallback": 5.0,
+      "allow_missing_imag": true,
+      "description": "If zin_real is missing but zin_mag exists, and |zin_imag| <= threshold (or missing), set zin_real = zin_mag."
+    },
+    "reflection": {
+      "auto_compute_from_zin": true,
+      "description": "If gamma_mag is missing, compute it from zin = zin_real + j*zin_imag and Z0."
+    }
+  }
+}

@@ -1,0 +1,145 @@
+llm:
+  active_backend: "deepseek"   #   DeepSeek payant
+
+  generation_mode: "api"
+  api_agnostic_design: true
+
+  defaults:
+    n_candidates: 3
+    max_tokens: 4096
+    temperature: 0.2
+    top_p: 0.8
+    top_k: 20
+    timeout_seconds: 120          # pour sécurité
+    max_retries: 2
+    retry_delay_seconds: 2
+    request_delay_seconds: 1      # Délai entre requêtes
+
+  response_handling:
+    expect_text_output: true
+    extract_code_block_if_present: true
+    strip_markdown_fences: true
+    normalize_line_endings: true
+    save_raw_response: true
+    save_cleaned_response: true
+
+  prompting:
+    include_system_prompt: true
+    include_output_format_prompt: true
+    include_sanity_rules_prompt: true
+    enforce_spice_only_output: false
+    add_generation_metadata_header: true
+
+backends:
+  # ============================================================================
+  # GEMINI - Gratuit, 60 req/min, pas de carte bancaire requise
+  # ============================================================================
+  gemini:
+    provider: "gemini"
+    client_class: "GeminiClient"
+    enabled: false
+
+    authentication:
+      api_key_env_var: "GEMINI_API_KEY"
+
+    model:
+      name: "gemini-2.0-flash-lite"   # Modèle gratuit et rapide
+      # Alternatives : "gemini-1.5-flash", "gemini-2.0-flash"
+      api_family: "gemini"
+
+    connection:
+      # Pas besoin de base_url, le SDK google-genai gère
+
+    request:
+      n_candidates_per_prompt: 1
+      max_tokens: 4096
+      temperature: 0.2
+      top_p: 0.8
+      top_k: 20
+      timeout_seconds: 120
+      max_retries: 2
+      retry_delay_seconds: 2
+
+    safety:
+      use_default_safety: false
+
+    limits:
+      requests_per_minute: 60      # Gemini gratuit : 60 req/min
+      daily_quota: null            # Pas de quota quotidien pour le gratuit
+
+    parsing:
+      response_text_field_priority:
+        - "text"
+        - "candidates[0].content.parts[0].text"
+
+  # ============================================================================
+  # DEEPSEEK - Payant, gardé pour usage futur
+  # ============================================================================
+  deepseek:
+    provider: "deepseek"
+    client_class: "DeepSeekClient"
+    enabled: true                # actif
+
+    authentication:
+      api_key_env_var: "DEEPSEEK_API_KEY"
+
+    model:
+      name: "deepseek-chat"
+      api_family: "openai"
+
+    connection:
+      base_url: "https://api.deepseek.com/v1"
+
+    request:
+      n_candidates_per_prompt: 1
+      max_tokens: 4096
+      temperature: 0.2
+      top_p: 0.8
+      timeout_seconds: 120
+
+    safety:
+      use_default_safety: false
+
+    limits:
+      requests_per_minute: 60
+      daily_quota: null
+
+    parsing:
+      response_text_field_priority:
+        - "choices[0].message.content"
+
+  # ============================================================================
+  # OPENAI_COMPAT - Pour Gemini via proxy (gardé pour référence)
+  # ============================================================================
+  openai_compat:
+    provider: "openai_compatible"
+    client_class: "OpenAICompatibleClient"
+    enabled: false                # ← Désactivé
+
+    authentication:
+      api_key_env_var: "OPENAI_COMPAT_API_KEY"
+
+    model:
+      name: "gemini-2.5-pro-cli"
+      api_family: "openai"
+
+    connection:
+      base_url: "https://api.ttk.homes/v1"
+
+    request:
+      n_candidates_per_prompt: 1
+      max_tokens: 4096
+      temperature: 0.2
+      top_p: 0.8
+      timeout_seconds: 60
+
+    safety:
+      use_default_safety: false
+
+    limits:
+      requests_per_minute: null
+      daily_quota: null
+
+    parsing:
+      response_text_field_priority:
+        - "choices[0].message.content"

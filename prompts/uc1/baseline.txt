@@ -1,0 +1,44 @@
+Design a valid ngspice netlist for a passive first-order RC low-pass filter.
+
+Circuit requirements:
+- Use only passive elements and one AC voltage source.
+- Rs = 1kΩ (explicit)
+- Rload = 100kΩ (explicit)
+- Nodes:
+  in, out, 0
+
+Topology:
+Vin -> Rs -> out
+C from out to 0
+Rload from out to 0
+
+Performance targets:
+- At 200 Hz: gain must be close to passband
+- At 2 kHz: attenuation ≥ 20 dB
+
+Important design guidance:
+- The effective resistance is approximately Rs || Rload ≈ 1kΩ
+- To satisfy BOTH constraints simultaneously, the capacitor value should be in the range:
+
+  300 nF to 400 nF
+
+- Values near 800 nF will over-attenuate at 200 Hz
+- Values near 200 nF will under-attenuate at 2 kHz
+
+AC analysis:
+.ac lin 2000 10 20000
+
+Measurements:
+.meas ac gain_200Hz_mag FIND v(out) AT=200
+.meas ac gain_2kHz_mag FIND v(out) AT=2000
+
+.control
+run
+.endc
+
+Forbidden:
+- VDB, VM, mag, db, log
+- active devices
+- explanations
+
+Return only netlist, end with .end

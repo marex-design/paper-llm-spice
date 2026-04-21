@@ -1,0 +1,37 @@
+Design a physically correct RC low-pass filter in ngspice.
+
+You MUST satisfy BOTH constraints:
+
+1. gain_200Hz_db >= -3.5 dB
+2. gain_2kHz_db <= -20 dB
+
+Key reasoning:
+- Rs = 1kΩ
+- Rload = 100kΩ → negligible effect
+- Effective resistance ≈ 1kΩ
+
+Therefore:
+- A capacitor around 0.8 µF is NOT acceptable (too much attenuation at 200 Hz)
+- A capacitor around 0.2 µF is NOT acceptable (insufficient attenuation at 2 kHz)
+
+Correct design region:
+👉 300 nF ≤ C ≤ 400 nF
+
+Choose a value in this range.
+
+Netlist rules:
+- Vin in 0 AC 1
+- Rs in out 1k
+- C out 0 <value>
+- Rload out 0 100k
+
+.ac lin 2000 10 20000
+
+.meas ac gain_200Hz_mag FIND v(out) AT=200
+.meas ac gain_2kHz_mag FIND v(out) AT=2000
+
+.control
+run
+.endc
+
+Return ONLY netlist. End with .end

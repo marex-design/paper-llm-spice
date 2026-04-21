@@ -1,0 +1,12 @@
+* Passive RC low-pass filter
+Vin in 0 AC 1
+Rs in out 1k
+Rload out 0 100k
+C out 0 350n
+.ac lin 2000 10 20000
+.meas ac gain_200Hz_mag FIND v(out) AT=200
+.meas ac gain_2kHz_mag FIND v(out) AT=2000
+.control
+run
+.endc
+.end

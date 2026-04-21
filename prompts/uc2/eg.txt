@@ -1,0 +1,43 @@
+You must generate a VALID and EXECUTABLE ngspice netlist for a passive L-network impedance matching circuit.
+
+=== SPECIFICATIONS ===
+- Source resistance Rs = 50 ohms
+- Load resistance Rload = 200 ohms
+- Target frequency f0 = 1 MHz
+
+=== REFERENCE TOPOLOGY (FOLLOW THIS EXACT STRUCTURE) ===
+* V1 src 0 ac 1
+* Rs src in 50
+* L1 in out 13.78uH
+* C1 out 0 1.378nF
+* Rload out 0 200
+* .ac dec 100 500k 1.5MEG
+* .meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6
+* .meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6
+* .meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6
+* .end
+
+=== NODE NAMING (MANDATORY) ===
+- Source node (before Rs): src
+- Input node (after Rs): in
+- Output node: out
+- Ground: 0
+
+=== ANALYSIS (COPY EXACTLY) ===
+.ac dec 100 500k 1.5MEG
+
+=== MEASUREMENTS (COPY EXACTLY) ===
+.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6
+.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6
+.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6
+
+=== FORBIDDEN ===
+- .control blocks
+- VDB, db, log, log10
+- plot, print, wrdata
+- active devices
+
+=== OUTPUT FORMAT ===
+- Output ONLY the SPICE netlist
+- First line: * L-Network Impedance Match
+- Last line: .end

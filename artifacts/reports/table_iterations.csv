@@ -1,0 +1,4 @@
+use_case,baseline_fail,baseline_run,baseline_pass,baseline_robust_pass,baseline_total_pass,baseline_spec_infeasible,eg_fail,eg_run,eg_pass,eg_robust_pass,eg_total_pass,eg_spec_infeasible,note
+uc1,0,0,3,3,6,0,0,0,3,3,6,0,ROBUST_PASS candidates are also counted in PASS
+uc2,9,0,0,0,0,0,9,0,0,0,0,0,ROBUST_PASS candidates are also counted in PASS
+uc3,9,0,0,0,0,0,9,0,0,0,0,0,ROBUST_PASS candidates are also counted in PASS

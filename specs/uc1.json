@@ -1,0 +1,187 @@
+{
+  "id": "uc1",
+  "title": "First-Order RC Low-Pass Filter with Source and Load Effects",
+  "short_name": "RC Low-Pass",
+  "category": "passive_circuit_design",
+  "analysis_domain": "frequency_domain",
+  "analysis_type": "ac",
+  "description": "Design and verify a first-order RC low-pass filter from a textual specification, explicitly accounting for source resistance and load resistance. The generated circuit must be SPICE-simulatable, measurable through .meas directives, and evaluated under nominal and tolerance-aware conditions.",
+  "objective": "Obtain a first-order RC low-pass filter that preserves the signal in the low-frequency region while providing at least 20 dB attenuation at 2 kHz, with explicit inclusion of source and load effects.",
+  "llm_task": {
+    "task_type": "generate_spice_netlist",
+    "expected_output": "A valid ngspice-compatible netlist implementing a first-order RC low-pass filter with explicit source and load, AC analysis, and .meas directives for required metrics.",
+    "topology_hint": "Series source resistance feeding an RC low-pass network, with capacitor to ground and resistive load at the output node.",
+    "design_variables": ["C"],
+    "fixed_elements": {
+      "Rs_ohm": 1000,
+      "Rload_ohm": 100000
+    }
+  },
+  "circuit_constraints": {
+    "topology_class": "first_order_rc_lowpass",
+    "source_model": {
+      "type": "ac_voltage_source",
+      "ac_magnitude": 1.0
+    },
+    "load_model": {
+      "type": "resistive_load",
+      "value_ohm": 100000
+    },
+    "source_resistance_ohm": 1000,
+    "allowed_components": ["R", "C", "V"],
+    "forbidden_features": [
+      "active_devices",
+      "dependent_sources",
+      "behavioral_sources",
+      "subcircuits",
+      "ideal_filters"
+    ]
+  },
+  "simulation": {
+    "simulator": "ngspice",
+    "required_directives": [".ac", ".meas"],
+    "ac_analysis": {
+      "sweep_type": "lin",
+      "points": 2000,
+      "f_start_hz": 10,
+      "f_stop_hz": 20000
+    },
+    "reference_nodes": {
+      "input_node": "in",
+      "output_node": "out",
+      "ground_node": "0"
+    }
+  },
+  "measurements": [
+    {
+      "name": "gain_50Hz_mag",
+      "kind": "ac_voltage_magnitude",
+      "target_node": "out",
+      "frequency_hz": 50,
+      "description": "Output voltage magnitude at 50 Hz."
+    },
+    {
+      "name": "gain_200Hz_mag",
+      "kind": "ac_voltage_magnitude",
+      "target_node": "out",
+      "frequency_hz": 200,
+      "description": "Output voltage magnitude at 200 Hz."
+    },
+    {
+      "name": "gain_2kHz_mag",
+      "kind": "ac_voltage_magnitude",
+      "target_node": "out",
+      "frequency_hz": 2000,
+      "description": "Output voltage magnitude at 2 kHz."
+    }
+  ],
+  "derived_metrics": [
+    {
+      "name": "gain_50Hz_db",
+      "from": "gain_50Hz_mag",
+      "transform": "20*log10(x)"
+    },
+    {
+      "name": "gain_200Hz_db",
+      "from": "gain_200Hz_mag",
+      "transform": "20*log10(x)"
+    },
+    {
+      "name": "gain_2kHz_db",
+      "from": "gain_2kHz_mag",
+      "transform": "20*log10(x)"
+    }
+  ],
+  "nominal_acceptance_criteria": {
+    "all_of": [
+      {
+        "metric": "gain_200Hz_db",
+        "operator": ">=",
+        "value": -3.5,
+        "rationale": "The passband edge at 200 Hz must remain close to the expected cutoff behavior."
+      },
+      {
+        "metric": "gain_200Hz_db",
+        "operator": "<=",
+        "value": 0.0,
+        "rationale": "The passive filter must not exhibit gain above 0 dB."
+      },
+      {
+        "metric": "gain_2kHz_db",
+        "operator": "<=",
+        "value": -20.0,
+        "rationale": "The attenuation at 2 kHz must be at least 20 dB."
+      }
+    ]
+  },
+  "robustness": {
+    "enabled": true,
+    "method": "parameter_sweep",
+    "description": "Tolerance-aware robustness assessment under component variations.",
+    "swept_parameters": [
+      {
+        "name": "C",
+        "variation_mode": "relative_percent",
+        "values_percent": [-20, -10, 0, 10, 20]
+      },
+      {
+        "name": "Rs",
+        "variation_mode": "relative_percent",
+        "values_percent": [-10, 0, 10]
+      }
+    ],
+    "robust_acceptance_rule": "All nominal acceptance criteria must remain satisfied for every sweep combination."
+  },
+  "decision_protocol": {
+    "run_definition": "The generated netlist parses and executes successfully in ngspice, and all required nominal measurements are extractable.",
+    "pass_definition": "The design satisfies all nominal acceptance criteria.",
+    "robust_pass_definition": "The design satisfies all nominal acceptance criteria under all robustness sweep conditions."
+  },
+  "sanity_checks": {
+    "required_nodes": ["in", "out", "0"],
+    "required_elements": [
+      "source_voltage",
+      "source_resistance",
+      "capacitor",
+      "load_resistance"
+    ],
+    "required_measurements": [
+      "gain_200Hz_mag",
+      "gain_2kHz_mag"
+    ],
+    "checks": [
+      "Source resistance must be explicitly present.",
+      "Load resistance must be explicitly present.",
+      "The circuit must implement a first-order passive low-pass behavior.",
+      "The output node must be measurable and consistent across the netlist and .meas directives."
+    ]
+  },
+  "primary_selection_metric": {
+    "name": "gain_2kHz_db",
+    "goal": "minimize",
+    "description": "Among passing candidates, prefer the design with the strongest attenuation at 2 kHz."
+  },
+  "expected_failure_modes": [
+    "Missing explicit source resistance.",
+    "Missing explicit load resistance.",
+    "Incorrect output node naming in .meas.",
+    "Invalid .meas syntax for AC magnitude extraction.",
+    "Nominal pass achieved but robustness failure under capacitor tolerance."
+  ],
+  "reporting": {
+    "report_metrics": [
+      "gain_50Hz_mag",
+      "gain_200Hz_mag",
+      "gain_2kHz_mag",
+      "gain_50Hz_db",
+      "gain_200Hz_db",
+      "gain_2kHz_db"
+    ],
+    "report_outcomes": ["RUN", "PASS", "ROBUST_PASS"]
+  },
+  "metadata": {
+    "version": "2.0",
+    "author_role": "framework_input_specification",
+    "paper_alignment": "Reproducible SPICE-based verification of LLM-generated passive circuits"
+  }
+}

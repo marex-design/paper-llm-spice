@@ -1,0 +1,2611 @@
+{
+  "case": "uc2",
+  "baseline": [
+    {
+      "candidate_id": "cand_01",
+      "mode": "baseline",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 11,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": false,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": false,
+            "issues": [
+              {
+                "code": "E-MEAS-01",
+                "message": "Required measurement 'gamma_mag' is missing."
+              }
+            ]
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [
+          {
+            "code": "E-MEAS-01",
+            "message": "Required measurement 'gamma_mag' is missing."
+          }
+        ],
+        "issue_count": 1
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\baseline\\attempt_00\\cand_01\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Sanity checks reported issues and simulation did not complete successfully."
+      },
+      "attempt": 0,
+      "attempt_dir": "runs\\uc2\\baseline\\attempt_00"
+    },
+    {
+      "candidate_id": "cand_02",
+      "mode": "baseline",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 11,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": false,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": false,
+            "issues": [
+              {
+                "code": "E-MEAS-01",
+                "message": "Required measurement 'gamma_mag' is missing."
+              }
+            ]
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [
+          {
+            "code": "E-MEAS-01",
+            "message": "Required measurement 'gamma_mag' is missing."
+          }
+        ],
+        "issue_count": 1
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\baseline\\attempt_00\\cand_02\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Sanity checks reported issues and simulation did not complete successfully."
+      },
+      "attempt": 0,
+      "attempt_dir": "runs\\uc2\\baseline\\attempt_00"
+    },
+    {
+      "candidate_id": "cand_03",
+      "mode": "baseline",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 11,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": false,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": false,
+            "issues": [
+              {
+                "code": "E-MEAS-01",
+                "message": "Required measurement 'gamma_mag' is missing."
+              }
+            ]
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [
+          {
+            "code": "E-MEAS-01",
+            "message": "Required measurement 'gamma_mag' is missing."
+          }
+        ],
+        "issue_count": 1
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\baseline\\attempt_00\\cand_03\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Sanity checks reported issues and simulation did not complete successfully."
+      },
+      "attempt": 0,
+      "attempt_dir": "runs\\uc2\\baseline\\attempt_00"
+    },
+    {
+      "candidate_id": "cand_01",
+      "mode": "baseline",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.meas ac gamma_mag PARAM 'abs((zin_real + (0,1)*zin_imag - 50)/(zin_real + (0,1)*zin_imag + 50))'\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 12,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\baseline\\attempt_01\\cand_01\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 1,
+      "attempt_dir": "runs\\uc2\\baseline\\attempt_01"
+    },
+    {
+      "candidate_id": "cand_02",
+      "mode": "baseline",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.meas ac gamma_mag PARAM 'abs((zin_real + (0,1)*zin_imag - 50)/(zin_real + (0,1)*zin_imag + 50))'\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 12,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\baseline\\attempt_01\\cand_02\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 1,
+      "attempt_dir": "runs\\uc2\\baseline\\attempt_01"
+    },
+    {
+      "candidate_id": "cand_03",
+      "mode": "baseline",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.meas ac gamma_mag PARAM 'abs((zin_real + (0,1)*zin_imag - 50)/(zin_real + (0,1)*zin_imag + 50))'\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 12,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\baseline\\attempt_01\\cand_03\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 1,
+      "attempt_dir": "runs\\uc2\\baseline\\attempt_01"
+    },
+    {
+      "candidate_id": "cand_01",
+      "mode": "baseline",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 11,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": false,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": false,
+            "issues": [
+              {
+                "code": "E-MEAS-01",
+                "message": "Required measurement 'gamma_mag' is missing."
+              }
+            ]
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [
+          {
+            "code": "E-MEAS-01",
+            "message": "Required measurement 'gamma_mag' is missing."
+          }
+        ],
+        "issue_count": 1
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\baseline\\attempt_02\\cand_01\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Sanity checks reported issues and simulation did not complete successfully."
+      },
+      "attempt": 2,
+      "attempt_dir": "runs\\uc2\\baseline\\attempt_02"
+    },
+    {
+      "candidate_id": "cand_02",
+      "mode": "baseline",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 11,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": false,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": false,
+            "issues": [
+              {
+                "code": "E-MEAS-01",
+                "message": "Required measurement 'gamma_mag' is missing."
+              }
+            ]
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [
+          {
+            "code": "E-MEAS-01",
+            "message": "Required measurement 'gamma_mag' is missing."
+          }
+        ],
+        "issue_count": 1
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\baseline\\attempt_02\\cand_02\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Sanity checks reported issues and simulation did not complete successfully."
+      },
+      "attempt": 2,
+      "attempt_dir": "runs\\uc2\\baseline\\attempt_02"
+    },
+    {
+      "candidate_id": "cand_03",
+      "mode": "baseline",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 11,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": false,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": false,
+            "issues": [
+              {
+                "code": "E-MEAS-01",
+                "message": "Required measurement 'gamma_mag' is missing."
+              }
+            ]
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [
+          {
+            "code": "E-MEAS-01",
+            "message": "Required measurement 'gamma_mag' is missing."
+          }
+        ],
+        "issue_count": 1
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\baseline\\attempt_02\\cand_03\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Sanity checks reported issues and simulation did not complete successfully."
+      },
+      "attempt": 2,
+      "attempt_dir": "runs\\uc2\\baseline\\attempt_02"
+    }
+  ],
+  "hitl": [
+    {
+      "candidate_id": "cand_01",
+      "mode": "hitl",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 11,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": false,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": false,
+            "issues": [
+              {
+                "code": "E-MEAS-01",
+                "message": "Required measurement 'gamma_mag' is missing."
+              }
+            ]
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [
+          {
+            "code": "E-MEAS-01",
+            "message": "Required measurement 'gamma_mag' is missing."
+          }
+        ],
+        "issue_count": 1
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\hitl\\attempt_00\\cand_01\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Sanity checks reported issues and simulation did not complete successfully."
+      },
+      "attempt": 0,
+      "attempt_dir": "runs\\uc2\\hitl\\attempt_00"
+    },
+    {
+      "candidate_id": "cand_02",
+      "mode": "hitl",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 11,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": false,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": false,
+            "issues": [
+              {
+                "code": "E-MEAS-01",
+                "message": "Required measurement 'gamma_mag' is missing."
+              }
+            ]
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [
+          {
+            "code": "E-MEAS-01",
+            "message": "Required measurement 'gamma_mag' is missing."
+          }
+        ],
+        "issue_count": 1
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\hitl\\attempt_00\\cand_02\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Sanity checks reported issues and simulation did not complete successfully."
+      },
+      "attempt": 0,
+      "attempt_dir": "runs\\uc2\\hitl\\attempt_00"
+    },
+    {
+      "candidate_id": "cand_03",
+      "mode": "hitl",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 11,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": false,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": false,
+            "issues": [
+              {
+                "code": "E-MEAS-01",
+                "message": "Required measurement 'gamma_mag' is missing."
+              }
+            ]
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [
+          {
+            "code": "E-MEAS-01",
+            "message": "Required measurement 'gamma_mag' is missing."
+          }
+        ],
+        "issue_count": 1
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\hitl\\attempt_00\\cand_03\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Sanity checks reported issues and simulation did not complete successfully."
+      },
+      "attempt": 0,
+      "attempt_dir": "runs\\uc2\\hitl\\attempt_00"
+    },
+    {
+      "candidate_id": "cand_01",
+      "mode": "hitl",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.meas ac gamma_mag PARAM 'abs((zin_real + 1i*zin_imag - 50)/(zin_real + 1i*zin_imag + 50))'\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 12,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\hitl\\attempt_01\\cand_01\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 1,
+      "attempt_dir": "runs\\uc2\\hitl\\attempt_01"
+    },
+    {
+      "candidate_id": "cand_02",
+      "mode": "hitl",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.meas ac gamma_mag PARAM 'abs((zin_real + 1i*zin_imag - 50)/(zin_real + 1i*zin_imag + 50))'\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 12,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\hitl\\attempt_01\\cand_02\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 1,
+      "attempt_dir": "runs\\uc2\\hitl\\attempt_01"
+    },
+    {
+      "candidate_id": "cand_03",
+      "mode": "hitl",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.meas ac gamma_mag PARAM 'abs((zin_real + 1i*zin_imag - 50)/(zin_real + 1i*zin_imag + 50))'\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 12,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": true,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [],
+        "issue_count": 0
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\hitl\\attempt_01\\cand_03\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Simulation failed or did not run successfully."
+      },
+      "attempt": 1,
+      "attempt_dir": "runs\\uc2\\hitl\\attempt_01"
+    },
+    {
+      "candidate_id": "cand_01",
+      "mode": "hitl",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 11,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": false,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": false,
+            "issues": [
+              {
+                "code": "E-MEAS-01",
+                "message": "Required measurement 'gamma_mag' is missing."
+              }
+            ]
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [
+          {
+            "code": "E-MEAS-01",
+            "message": "Required measurement 'gamma_mag' is missing."
+          }
+        ],
+        "issue_count": 1
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\hitl\\attempt_02\\cand_01\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Sanity checks reported issues and simulation did not complete successfully."
+      },
+      "attempt": 2,
+      "attempt_dir": "runs\\uc2\\hitl\\attempt_02"
+    },
+    {
+      "candidate_id": "cand_02",
+      "mode": "hitl",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 11,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": false,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": false,
+            "issues": [
+              {
+                "code": "E-MEAS-01",
+                "message": "Required measurement 'gamma_mag' is missing."
+              }
+            ]
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [
+          {
+            "code": "E-MEAS-01",
+            "message": "Required measurement 'gamma_mag' is missing."
+          }
+        ],
+        "issue_count": 1
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\hitl\\attempt_02\\cand_02\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Sanity checks reported issues and simulation did not complete successfully."
+      },
+      "attempt": 2,
+      "attempt_dir": "runs\\uc2\\hitl\\attempt_02"
+    },
+    {
+      "candidate_id": "cand_03",
+      "mode": "hitl",
+      "use_case": "uc2",
+      "llm_success": true,
+      "backend": "deepseek",
+      "model": "deepseek-chat",
+      "raw_text": "* L-Network Impedance Match\nV1 src 0 ac 1\nRs src in 50\nL1 in out 13.78uH\nC1 out 0 1.378nF\nRload out 0 200\n.ac dec 100 500k 1.5MEG\n.meas ac zin_mag FIND mag(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_real FIND real(v(in)/(-i(V1))) AT=1e6\n.meas ac zin_imag FIND imag(v(in)/(-i(V1))) AT=1e6\n.end",
+      "llm_error": null,
+      "final_decision": "FAIL",
+      "metadata": {
+        "line_count": 11,
+        "has_end": true,
+        "has_ac": true,
+        "has_tran": false,
+        "has_meas": true,
+        "component_counts": {
+          "V": 1,
+          "R": 2,
+          "L": 1,
+          "C": 1
+        },
+        "component_names": [
+          "V1",
+          "Rs",
+          "L1",
+          "C1",
+          "Rload"
+        ],
+        "node_names": [
+          "0",
+          "in",
+          "out",
+          "src"
+        ]
+      },
+      "sanity": {
+        "ok": false,
+        "results_by_family": [
+          {
+            "rule_family": "electrical",
+            "ok": true,
+            "issues": []
+          },
+          {
+            "rule_family": "measurement",
+            "ok": false,
+            "issues": [
+              {
+                "code": "E-MEAS-01",
+                "message": "Required measurement 'gamma_mag' is missing."
+              }
+            ]
+          },
+          {
+            "rule_family": "grid",
+            "ok": true,
+            "issues": []
+          }
+        ],
+        "issues": [
+          {
+            "code": "E-MEAS-01",
+            "message": "Required measurement 'gamma_mag' is missing."
+          }
+        ],
+        "issue_count": 1
+      },
+      "simulation": {
+        "success": true,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_path": "runs\\uc2\\hitl\\attempt_02\\cand_03\\output.log"
+      },
+      "parsed_log": {
+        "has_error": true,
+        "ran_simulation": true,
+        "warnings": [
+          "Warning: can't parse 'im': ignored"
+        ],
+        "errors": [
+          "Error: no data saved for A.C. Small signal analysis; analysis not run"
+        ]
+      },
+      "meas_raw": {},
+      "metric_enhancements": [],
+      "meas": {},
+      "required_measurements_ok": false,
+      "nominal": {
+        "ok": false,
+        "criteria_results": [
+          {
+            "metric": "zin_real",
+            "operator": ">=",
+            "target": 45.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_real",
+            "operator": "<=",
+            "target": 55.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_real' is missing or non-numeric.",
+            "rationale": "The real part of the input impedance should remain close to the desired 50-ohm match."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": ">=",
+            "target": -5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "zin_imag",
+            "operator": "<=",
+            "target": 5.0,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'zin_imag' is missing or non-numeric.",
+            "rationale": "The input impedance should be approximately real at the target frequency."
+          },
+          {
+            "metric": "gamma_mag",
+            "operator": "<=",
+            "target": 0.1,
+            "actual": null,
+            "passed": false,
+            "reason": "Metric 'gamma_mag' is missing or non-numeric.",
+            "rationale": "The reflection coefficient magnitude must remain small enough to indicate acceptable matching."
+          }
+        ],
+        "checked_count": 5
+      },
+      "robustness": null,
+      "decision": {
+        "label": "FAIL",
+        "reason": "Sanity checks reported issues and simulation did not complete successfully."
+      },
+      "attempt": 2,
+      "attempt_dir": "runs\\uc2\\hitl\\attempt_02"
+    }
+  ]
+}

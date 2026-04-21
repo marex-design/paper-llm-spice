@@ -1,0 +1,31 @@
+Before producing the final netlist, internally verify the following constraints:
+
+Electrical consistency:
+- Every referenced node must exist.
+- Ground must be node 0.
+- Source and load elements must be explicitly present if required.
+- Passive topology constraints must be respected.
+
+Simulation consistency:
+- The requested analysis type must be present (.ac or .tran).
+- All required measurement frequencies or time windows must be covered by the simulation setup.
+- All .meas directives must reference valid nodes or valid derived quantities.
+- The output node name must be used consistently.
+
+Measurement consistency:
+- All required metrics must be measurable from the generated netlist.
+- If AC measurements are requested at specific frequencies, the AC sweep grid must include those frequencies.
+- If transient measurements are requested over a time window, the .tran setup must cover the full window.
+- If input impedance or reflection coefficient is required, current sign conventions must be handled consistently.
+
+Robustness-oriented consistency:
+- The design should use explicit component names for sweepable parameters.
+- Do not hide critical component values in ambiguous expressions.
+- Use simple parameterization if needed, but keep the netlist batch-compatible.
+
+Portability:
+- Prefer ngspice-compatible syntax.
+- Avoid fragile or unclear control constructs unless strictly necessary.
+- Prefer direct .meas extraction over interactive-only commands.
+
+If there is any ambiguity, choose the most explicit, measurable, and simulator-compatible implementation.

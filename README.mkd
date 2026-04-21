@@ -1,0 +1,289 @@
+# LLM-Assisted Analog Circuit Verification Framework
+
+## Overview
+
+This repository provides a reproducible framework for **LLM-assisted analog circuit generation and verification**, combining:
+
+- Large Language Models (LLMs)
+- SPICE simulation (ngspice)
+- Structured sanity checks
+- Automated measurement extraction
+- Robustness analysis via parameter sweeps
+
+The framework is designed for research on **analog design automation and verification**, with a focus on:
+
+- Testbench generation
+- Specification checking
+- Human-in-the-loop (hitl) correction
+- Reproducible evaluation pipelines
+
+---
+
+## Key Features
+
+- **LLM-based circuit generation**
+  - Multi-candidate generation (N samples per prompt)
+  - Backend-agnostic design (Gemini, OpenAI, mock)
+
+- **Structured verification pipeline**
+  - Response cleaning
+  - Netlist extraction
+  - Sanity checks (topology, measurements, grid consistency)
+
+- **SPICE simulation (ngspice)**
+  - Batch execution
+  - Automated `.meas` extraction
+
+- **Evaluation engine**
+  - Nominal performance validation
+  - PASS / RUN / FAIL classification
+
+- **Robustness analysis**
+  - Parameter sweeps using `.param`
+  - Automatic robustness evaluation
+  - ROBUST_PASS classification
+
+- **Reporting**
+  - Aggregalated results
+  - CSV tables 
+  - Markdown summaries
+
+---
+
+## Project Structure
+
+```
+├── configs/             # YAML configuration files
+├── prompts/             # LLM prompts (baseline / eg / shared)
+├── specs/               # Use case specifications (JSON)
+├── llm/                 # LLM clients and generator
+├── extraction/          # Response cleaning and parsing
+├── sanity_checks/       # Pre-simulation validation
+├── spice/               # Simulation, parsing, sweep
+├── evaluation/          # Metrics, criteria, decision
+├── pipeline/            # Execution orchestration
+├── reporting/           # Tables, summaries, exports
+├── scripts/             # Entry points (reproducibility)
+├── artifacts/           # Outputs (logs, reports)
+└── runs/                # Generated experiments
+```
+
+---
+
+## Use Cases
+
+The framework includes three benchmark tasks:
+
+### UC1 — RC Low-Pass Filter
+- Frequency-domain behavior
+- Gain constraints at specific frequencies
+- Sensitivity to loading effects
+
+### UC2 — Impedance Matching Network
+- L-network design
+- Input impedance and reflection coefficient
+- Complex-valued measurements
+
+### UC3 — RC Snubber Design
+- Transient over-voltage mitigation
+- Peak voltage reduction
+- Energy dissipation analysis
+
+---
+
+## Installation
+
+### Requirements
+
+- Python 3.10+
+- ngspice (version 41 recommended)
+
+### Install Python dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Install ngspice
+
+Linux:
+```bash
+sudo apt install ngspice
+```
+
+Windows:
+- Install ngspice manually
+- Ensure `ngspice` is available in PATH
+
+---
+
+## Configuration
+
+Main configuration files:
+
+- `configs/llm.yaml` → LLM backend and parameters
+- `configs/spice.yaml` → SPICE execution settings
+- `configs/experiment.yaml` → experiment parameters
+- `configs/logging.yaml` → logging behavior
+
+### API Key
+
+For Gemini:
+
+```bash
+export GEMINI_API_KEY=your_api_key
+```
+
+On Windows PowerShell:
+
+```powershell
+$env:GEMINI_API_KEY="your_api_key"
+```
+
+---
+
+## Running Experiments
+
+### Run all use cases
+
+```bash
+python scripts/reproduce_all.py
+```
+
+### Run a single use case
+
+```bash
+python scripts/reproduce_uc1.py
+python scripts/reproduce_uc2.py
+python scripts/reproduce_uc3.py
+```
+
+---
+
+## Output
+
+Results are stored in:
+
+```text
+artifacts/reports/
+```
+
+Generated files include:
+
+- `aggrhitlated_results.json`
+- `table_iterations.csv`
+- `table_best_candidates.csv`
+- `paper_summary.md`
+
+Each candidate also has:
+
+```text
+runs/<use_case>/<mode>/cand_xx/
+```
+
+Containing:
+- `circuit.cir`
+- `output.log`
+- raw and cleaned LLM responses
+
+---
+
+## Evaluation Pipeline
+
+Each candidate follows this pipeline:
+
+```text
+LLM → Cleaning → Netlist Extraction → Sanity Checks → SPICE → Parsing → Evaluation → Decision
+```
+
+### Decision Labels
+
+| Label | Meaning |
+|---|---|
+| FAIL | Invalid circuit or simulation failure |
+| RUN | Simulation runs but specs not satisfied |
+| PASS | Nominal specs satisfied |
+| ROBUST_PASS | Specs satisfied under parameter variations |
+
+---
+
+## Robustness Analysis
+
+Robustness is evaluated via parameter sweeps:
+
+- Requires `.param` definitions in netlists
+- Automatically modifies parameters
+- Runs multiple SPICE simulations
+- Evaluates consistency of performance
+
+Example:
+
+```spice
+.param C=0.82u
+C1 out 0 {C}
+```
+
+---
+
+## Baseline vs hitl
+
+Two modes are compared:
+
+### Baseline
+- Raw LLM generation
+- Minimal constraints
+
+### hitl (Human-in-the-Loop)
+- Structured prompting
+- Enforced design constraints
+- Parameterized components (`.param`)
+- Improved reproducibility and robustness
+
+---
+
+## Reproducibility
+
+- Deterministic pipeline structure
+- Explicit configs
+- Logged backend and model
+- Batch-mode SPICE execution
+- Exported results and tables
+
+---
+
+## Limitations
+
+- LLM outputs may be syntactically or physically incorrect
+- Robustness depends on correct `.param` usage
+- No guarantee of optimal design (only verification)
+
+---
+
+## Future Work
+
+- Inthitlration with GNN-based circuit validation
+- Closed-loop optimization (LLM + simulation feedback)
+- Industrial PDK support
+- Multimodal reasoning (waveforms + netlists)
+
+---
+
+## Citation
+
+If you use this framework, please cite:
+
+```text
+(After accepting)
+```
+
+---
+
+## Author
+
+Anonym
+
+---
+
+## License
+
+MIT License

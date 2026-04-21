@@ -1,0 +1,59 @@
+You must generate a VALID and EXECUTABLE ngspice netlist for an RC snubber circuit.
+
+=== SPECIFICATIONS ===
+- DC supply: 24V
+- Load: Rload = 2 ohms, Lload = 10 mH (series RL)
+- Parasitic capacitance: Cpar = 50 pF
+
+=== REFERENCE TOPOLOGY (FOLLOW EXACTLY) ===
+* V1 in 0 DC 24V
+* Rs in sw 0.1
+* .model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)
+* Vpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)
+* S1 in sw ctrl 0 SWMOD
+* Rload sw n1 2
+* Lload n1 0 10mH
+* Cpar sw 0 50pF
+* Rsnub sw snub_mid 10
+* Cs snub_mid 0 10nF
+* .tran 0.1u 3m UIC
+* .meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m
+* .meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m
+* .meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m
+* .end
+
+=== NODE NAMING (MANDATORY) ===
+- DC supply: in
+- Switching node: sw
+- Load intermediate: n1
+- Snubber intermediate: snub_mid
+- Control: ctrl
+- Ground: 0
+
+=== SWITCH (COPY EXACTLY) ===
+.model SWMOD SW(Ron=1m Roff=1Meg Vt=0.5 Vh=0)
+Vpulse ctrl 0 PULSE(0 1 0 1u 1u 1m 2m)
+S1 in sw ctrl 0 SWMOD
+
+=== ANALYSIS (COPY EXACTLY) ===
+.tran 0.1u 3m UIC
+
+=== MEASUREMENTS (COPY EXACTLY) ===
+.meas tran vpeak_switch MAX v(sw) FROM=0.9m TO=3m
+.meas tran snubber_energy INTEG (v(sw)-v(snub_mid))*i(Cs) FROM=0.9m TO=3m
+.meas tran settling_proxy MAX v(sw) FROM=1.5m TO=3m
+
+=== CRITICAL ===
+- Snubber capacitor MUST be 'Cs'
+- Use (v(sw)-v(snub_mid))*i(Cs) NOT v(sw)*i(Cs)
+- Include UIC in .tran
+
+=== FORBIDDEN ===
+- .control blocks
+- VDB, db, log, log10
+- active devices
+
+=== OUTPUT ===
+- First line: * RC Snubber Circuit
+- Last line: .end
+- ONLY the netlist

@@ -1,0 +1,4 @@
+use_case,baseline_best_candidate,baseline_best_decision,eg_best_candidate,eg_best_decision
+uc1,cand_01,ROBUST_PASS,cand_01,ROBUST_PASS
+uc2,cand_01,FAIL,cand_01,FAIL
+uc3,cand_01,FAIL,cand_01,FAIL

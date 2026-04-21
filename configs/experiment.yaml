@@ -1,0 +1,124 @@
+experiment:
+  name: "llm_spice_reproducible_framework"
+  version: "1.0"
+  description: "Automated experimental campaign for LLM-assisted passive circuit design and SPICE-based verification."
+  random_seed: 42
+  reproducibility_mode: true
+
+execution:
+  enabled_use_cases:
+    - uc1
+    - uc2
+    - uc3
+
+  modes:
+    - baseline
+    - hitl
+
+  n_candidates_per_prompt: 3
+  max_iterations_per_candidate: 3
+  stop_on_first_pass: false
+  stop_on_first_robust_pass: false
+  continue_on_error: true
+
+prompts:
+  root_dir: "prompts"
+  shared_system_prompt: "shared/system_prompt.txt"
+  shared_output_format_prompt: "shared/output_format.txt"
+  shared_sanity_rules_prompt: "shared/sanity_rules.txt"
+
+  mode_files:
+    baseline: "baseline.txt"
+    hitl: "hitl.txt"
+
+specs:
+  root_dir: "specs"
+  use_case_files:
+    uc1: "uc1.json"
+    uc2: "uc2.json"
+    uc3: "uc3.json"
+
+artifacts:
+  root_dir: "artifacts"
+  raw_llm_dir: "raw_llm"
+  candidates_dir: "candidates"
+  cleaned_netlists_dir: "cleaned_netlists"
+  logs_dir: "logs"
+  measures_dir: "measures"
+  sweeps_dir: "sweeps"
+  decisions_dir: "decisions"
+  reports_dir: "reports"
+
+selection:
+  candidate_selection_policy: "best_passing_then_best_running"
+  primary_metric_source: "spec"
+  tie_break_policy: "first_by_primary_metric_then_lowest_iteration"
+
+evaluation:
+  require_sanity_check_before_simulation: true
+  require_all_required_measurements: true
+  classify_missing_measurements_as_fail: true
+  classify_simulation_error_as_fail: true
+
+decision_protocol:
+  supported_outcomes:
+    - FAIL
+    - RUN
+    - PASS
+    - ROBUST_PASS
+    - SPEC_INFEASIBLE
+
+  spec_infeasibility:
+    enabled: true
+    minimum_executable_candidates: 2
+    require_physically_meaningful_topology: true
+    trigger_if_no_pass_after_all_candidates: true
+
+robustness:
+  enabled: true
+  use_case_defined_sweeps: true
+  override_global_sweeps: false
+
+reporting:
+  generate_case_summary_json: true
+  generate_case_summary_markdown: true
+  generate_final_results_csv: true
+  generate_iteration_table_csv: true
+  generate_taxonomy_table_csv: true
+  generate_paper_summary_markdown: true
+
+  output_files:
+    final_results_csv: "final_results.csv"
+    iteration_table_csv: "table_iterations.csv"
+    taxonomy_table_csv: "table_taxonomy.csv"
+    paper_summary_markdown: "paper_summary.md"
+
+# ============================================================================
+# RETRY CONFIGURATION 
+# ============================================================================
+retry:
+  enabled: true
+  max_retries: 2
+  retry_on_fail: true
+  retry_on_run: true
+  retry_on_missing_measurements: true
+  retry_delay_seconds: 1
+  feedback_in_prompt: true
+  feedback_format: "[PREVIOUS ATTEMPT FEEDBACK]\n{feedback}\n\nPlease fix these issues and generate a corrected netlist."
+
+retry_policy:
+  enable_retry_on_llm_format_error: true
+  enable_retry_on_extraction_error: true
+  max_retries_per_candidate: 1
+
+naming:
+  candidate_prefix: "cand"
+  iteration_prefix: "iter"
+  baseline_dir_name: "baseline"
+  hitl_dir_name: "hitl"
+
+paper_alignment:
+  benchmark_style: "three_use_case_reproducible_evaluation"
+  compare_baseline_vs_hitl: true
+  evaluate_run_pass_robust_pass: true
+  emphasize_error_taxonomy: true
