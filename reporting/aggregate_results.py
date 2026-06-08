@@ -5,17 +5,12 @@ from typing import Any, Dict, List
 
 class ResultsAggregator:
     def __init__(self, hierarchical_counting: bool = True):
-        """
-        Args:
-            hierarchical_counting: Si True, ROBUST_PASS incrémente aussi PASS.
-                                  Si False, comptage exclusif (ancien comportement).
-        """
         self.hierarchical_counting = hierarchical_counting
 
     def aggregate_case(self, experiment_result: Dict[str, Any]) -> Dict[str, Any]:
         case_name = experiment_result["case"]
         baseline = experiment_result.get("baseline", [])
-        eg = experiment_result.get("eg", experiment_result.get("hitl", []))
+        eg = experiment_result.get("eg", [])
 
         return {
             "case": case_name,
@@ -40,7 +35,6 @@ class ResultsAggregator:
                 counts[label] = 0
             counts[label] += 1
 
-            # Hiérarchie : ROBUST_PASS est aussi un PASS
             if self.hierarchical_counting and label == "ROBUST_PASS":
                 counts["PASS"] += 1
 
@@ -49,13 +43,12 @@ class ResultsAggregator:
             else:
                 best_candidate = self._pick_better(best_candidate, item)
 
-        # Calculer le total des succès (PASS + ROBUST_PASS)
         total_pass = counts["PASS"] + counts["ROBUST_PASS"]
 
         return {
             "total_candidates": len(results),
             "counts": counts,
-            "total_pass": total_pass,  # Nouveau champ
+            "total_pass": total_pass,
             "best_candidate": best_candidate,
         }
 

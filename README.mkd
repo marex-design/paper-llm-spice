@@ -1,90 +1,90 @@
-# LLM-Assisted Analog Circuit Verification Framework
+# spec2testbench v1.0
 
 ## Overview
 
-This repository provides a reproducible framework for **LLM-assisted analog circuit generation and verification**, combining:
+This repository provides **spec2testbench v1.0**, a reproducible framework for **specification-to-testbench generation and analog circuit verification**, combining:
 
 - Large Language Models (LLMs)
-- SPICE simulation (ngspice)
+- SPICE simulation (`ngspice`)
 - Structured sanity checks
 - Automated measurement extraction
 - Robustness analysis via parameter sweeps
 
 The framework is designed for research on **analog design automation and verification**, with a focus on:
 
-- Testbench generation
+- Specification-to-testbench generation
 - Specification checking
-- Human-in-the-loop (hitl) correction
+- Explicit Guidance (EG)
 - Reproducible evaluation pipelines
 
 ---
 
 ## Key Features
 
-- **LLM-based circuit generation**
+- **LLM-based testbench and circuit generation**
   - Multi-candidate generation (N samples per prompt)
-  - Backend-agnostic design (Gemini, OpenAI, mock)
+  - Backend-agnostic design (Gemini, OpenAI, DeepSeek, mock)
 
 - **Structured verification pipeline**
   - Response cleaning
   - Netlist extraction
   - Sanity checks (topology, measurements, grid consistency)
 
-- **SPICE simulation (ngspice)**
+- **SPICE simulation (`ngspice`)**
   - Batch execution
   - Automated `.meas` extraction
 
 - **Evaluation engine**
   - Nominal performance validation
-  - PASS / RUN / FAIL classification
+  - `FAIL` / `RUN` / `PASS` / `ROBUST_PASS` classification
 
 - **Robustness analysis**
   - Parameter sweeps using `.param`
   - Automatic robustness evaluation
-  - ROBUST_PASS classification
+  - `ROBUST_PASS` classification
 
 - **Reporting**
-  - Aggregalated results
-  - CSV tables 
+  - Aggregated results
+  - CSV tables
   - Markdown summaries
 
 ---
 
 ## Project Structure
 
-```
-├── configs/             # YAML configuration files
-├── prompts/             # LLM prompts (baseline / eg / shared)
-├── specs/               # Use case specifications (JSON)
-├── llm/                 # LLM clients and generator
-├── extraction/          # Response cleaning and parsing
-├── sanity_checks/       # Pre-simulation validation
-├── spice/               # Simulation, parsing, sweep
-├── evaluation/          # Metrics, criteria, decision
-├── pipeline/            # Execution orchestration
-├── reporting/           # Tables, summaries, exports
-├── scripts/             # Entry points (reproducibility)
-├── artifacts/           # Outputs (logs, reports)
-└── runs/                # Generated experiments
+```text
+configs/             # YAML configuration files
+prompts/             # LLM prompts (baseline / EG / shared)
+specs/               # Use case specifications (JSON)
+llm/                 # LLM clients and generator
+extraction/          # Response cleaning and parsing
+sanity_checks/       # Pre-simulation validation
+spice/               # Simulation, parsing, sweep
+evaluation/          # Metrics, criteria, decision
+pipeline/            # Execution orchestration
+reporting/           # Tables, summaries, exports
+scripts/             # Entry points (reproducibility)
+artifacts/           # Outputs (logs, reports)
+runs/                # Generated experiments
 ```
 
 ---
 
 ## Use Cases
 
-The framework includes three benchmark tasks:
+spec2testbench includes three benchmark tasks:
 
-### UC1 — RC Low-Pass Filter
+### UC1 - RC Low-Pass Filter
 - Frequency-domain behavior
 - Gain constraints at specific frequencies
 - Sensitivity to loading effects
 
-### UC2 — Impedance Matching Network
+### UC2 - Impedance Matching Network
 - L-network design
 - Input impedance and reflection coefficient
 - Complex-valued measurements
 
-### UC3 — RC Snubber Design
+### UC3 - RC Snubber Design
 - Transient over-voltage mitigation
 - Peak voltage reduction
 - Energy dissipation analysis
@@ -96,7 +96,7 @@ The framework includes three benchmark tasks:
 ### Requirements
 
 - Python 3.10+
-- ngspice (version 41 recommended)
+- `ngspice` (version 41 recommended)
 
 ### Install Python dependencies
 
@@ -107,13 +107,15 @@ pip install -r requirements.txt
 ### Install ngspice
 
 Linux:
+
 ```bash
 sudo apt install ngspice
 ```
 
 Windows:
-- Install ngspice manually
-- Ensure `ngspice` is available in PATH
+
+- Install `ngspice` manually
+- Ensure `ngspice` is available in `PATH`
 
 ---
 
@@ -121,10 +123,10 @@ Windows:
 
 Main configuration files:
 
-- `configs/llm.yaml` → LLM backend and parameters
-- `configs/spice.yaml` → SPICE execution settings
-- `configs/experiment.yaml` → experiment parameters
-- `configs/logging.yaml` → logging behavior
+- `configs/llm.yaml` -> LLM backend and parameters
+- `configs/spice.yaml` -> SPICE execution settings
+- `configs/experiment.yaml` -> experiment parameters
+- `configs/logging.yaml` -> logging behavior
 
 ### API Key
 
@@ -170,7 +172,7 @@ artifacts/reports/
 
 Generated files include:
 
-- `aggrhitlated_results.json`
+- `aggregated_results.json`
 - `table_iterations.csv`
 - `table_best_candidates.csv`
 - `paper_summary.md`
@@ -182,6 +184,7 @@ runs/<use_case>/<mode>/cand_xx/
 ```
 
 Containing:
+
 - `circuit.cir`
 - `output.log`
 - raw and cleaned LLM responses
@@ -193,7 +196,7 @@ Containing:
 Each candidate follows this pipeline:
 
 ```text
-LLM → Cleaning → Netlist Extraction → Sanity Checks → SPICE → Parsing → Evaluation → Decision
+LLM -> Cleaning -> Netlist Extraction -> Sanity Checks -> SPICE -> Parsing -> Evaluation -> Decision
 ```
 
 ### Decision Labels
@@ -201,9 +204,9 @@ LLM → Cleaning → Netlist Extraction → Sanity Checks → SPICE → Parsing 
 | Label | Meaning |
 |---|---|
 | FAIL | Invalid circuit or simulation failure |
-| RUN | Simulation runs but specs not satisfied |
-| PASS | Nominal specs satisfied |
-| ROBUST_PASS | Specs satisfied under parameter variations |
+| RUN | Simulation runs but specs are not satisfied |
+| PASS | Nominal specs are satisfied |
+| ROBUST_PASS | Specs are satisfied under parameter variations |
 
 ---
 
@@ -225,7 +228,7 @@ C1 out 0 {C}
 
 ---
 
-## Baseline vs hitl
+## Baseline vs Explicit Guidance (EG)
 
 Two modes are compared:
 
@@ -233,7 +236,7 @@ Two modes are compared:
 - Raw LLM generation
 - Minimal constraints
 
-### hitl (Human-in-the-Loop)
+### Explicit Guidance (EG)
 - Structured prompting
 - Enforced design constraints
 - Parameterized components (`.param`)
@@ -261,7 +264,7 @@ Two modes are compared:
 
 ## Future Work
 
-- Inthitlration with GNN-based circuit validation
+- Integration with GNN-based circuit validation
 - Closed-loop optimization (LLM + simulation feedback)
 - Industrial PDK support
 - Multimodal reasoning (waveforms + netlists)
@@ -270,7 +273,7 @@ Two modes are compared:
 
 ## Citation
 
-If you use this framework, please cite:
+If you use spec2testbench, please cite:
 
 ```text
 (After accepting)

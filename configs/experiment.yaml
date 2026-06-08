@@ -1,7 +1,7 @@
 experiment:
-  name: "llm_spice_reproducible_framework"
+  name: "spec2testbench"
   version: "1.0"
-  description: "Automated experimental campaign for LLM-assisted passive circuit design and SPICE-based verification."
+  description: "spec2testbench v1.0: reproducible specification-to-testbench generation and SPICE-based verification for passive analog circuits."
   random_seed: 42
   reproducibility_mode: true
 
@@ -13,7 +13,7 @@ execution:
 
   modes:
     - baseline
-    - hitl
+    - eg
 
   n_candidates_per_prompt: 3
   max_iterations_per_candidate: 3
@@ -29,7 +29,7 @@ prompts:
 
   mode_files:
     baseline: "baseline.txt"
-    hitl: "hitl.txt"
+    eg: "eg.txt"
 
 specs:
   root_dir: "specs"
@@ -115,7 +115,7 @@ naming:
   candidate_prefix: "cand"
   iteration_prefix: "iter"
   baseline_dir_name: "baseline"
-  hitl_dir_name: "hitl"
+  eg_dir_name: "eg"
 
 paper_alignment:
   benchmark_style: "three_use_case_reproducible_evaluation"

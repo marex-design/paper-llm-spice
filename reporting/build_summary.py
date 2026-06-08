@@ -6,7 +6,7 @@ from typing import Dict, List
 class SummaryBuilder:
     def build_markdown_summary(self, aggregated_results: List[Dict[str, object]]) -> str:
         lines: List[str] = []
-        lines.append("# Experimental Summary")
+        lines.append("# spec2testbench v1.0 Experimental Summary")
         lines.append("")
 
         for case_result in aggregated_results:
@@ -25,7 +25,7 @@ class SummaryBuilder:
             lines.append(f"- SPEC_INFEASIBLE: {baseline.get('SPEC_INFEASIBLE', 0)}")
             lines.append("")
 
-            lines.append("### EG")
+            lines.append("### Explicit Guidance (EG)")
             lines.append(f"- FAIL: {eg.get('FAIL', 0)}")
             lines.append(f"- RUN: {eg.get('RUN', 0)}")
             lines.append(f"- PASS: {eg.get('PASS', 0)}")

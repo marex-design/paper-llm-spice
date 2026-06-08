@@ -1,22 +1,20 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Any, Dict, List
 
-from pipeline.run_case import CaseRunner
 from pipeline.retry_logic import RetryManager
+from pipeline.run_case import CaseRunner
 
 
-def run_hitl(
+def run_eg(
     config: Dict[str, Any],
     prompt: str,
     system_prompt: str,
     spec: Dict[str, Any],
     work_dir: Path,
 ) -> List[Dict[str, Any]]:
-    """
-    Exécute le mode HITL (Explicit Guidance) avec retry intelligent.
-    """
+    """Run the Explicit Guidance mode with retry feedback."""
     runner = CaseRunner(config)
     retry_manager = RetryManager(config.get("experiment", {}))
 
@@ -31,10 +29,10 @@ def run_hitl(
     attempt = 0
 
     while True:
-        attempt_dir = work_dir / "hitl" / f"attempt_{attempt:02d}"
+        attempt_dir = work_dir / "eg" / f"attempt_{attempt:02d}"
         attempt_dir.mkdir(parents=True, exist_ok=True)
 
-        print(f"\n  [HITL] Attempt {attempt + 1}...")
+        print(f"\n  [EG] Attempt {attempt + 1}...")
 
         results = runner.run(
             prompt=current_prompt,
@@ -42,30 +40,30 @@ def run_hitl(
             system_prompt=system_prompt,
             n_candidates=n_candidates,
             work_dir=attempt_dir,
-            mode="hitl",
+            mode="eg",
         )
 
-        # Ajouter l'information de tentative aux résultats
-        for r in results:
-            r["attempt"] = attempt
-            r["attempt_dir"] = str(attempt_dir)
+        for result in results:
+            result["attempt"] = attempt
+            result["attempt_dir"] = str(attempt_dir)
 
         all_results.extend(results)
 
-        # Résumé de la tentative
-        decisions = [r.get("final_decision", "FAIL") for r in results]
-        print(f"    Results: FAIL={decisions.count('FAIL')}, RUN={decisions.count('RUN')}, "
-              f"PASS={decisions.count('PASS')}, ROBUST_PASS={decisions.count('ROBUST_PASS')}")
+        decisions = [item.get("final_decision", "FAIL") for item in results]
+        print(
+            "    Results: "
+            f"FAIL={decisions.count('FAIL')}, "
+            f"RUN={decisions.count('RUN')}, "
+            f"PASS={decisions.count('PASS')}, "
+            f"ROBUST_PASS={decisions.count('ROBUST_PASS')}"
+        )
 
         should_retry, feedback = retry_manager.should_retry(results, attempt)
-
         if not should_retry:
-            print(f"    Stopping retry loop.")
+            print("    Stopping retry loop.")
             break
 
-        print(f"    Retrying with feedback...")
-
-        # Construire un nouveau prompt avec feedback
+        print("    Retrying with feedback...")
         current_prompt = f"{prompt}\n\n{feedback}"
         attempt += 1
 

@@ -4,11 +4,11 @@ import time
 from typing import Any, Dict, List, Optional
 
 from llm.base_client import LLMRequest, LLMResponse
+from llm.deepseek_client import DeepSeekClient
 from llm.gemini_client import GeminiClient
 from llm.mock_client import MockClient
 from llm.openai_client import OpenAIClient
 from llm.openai_compatible_client import OpenAICompatibleClient
-from llm.deepseek_client import DeepSeekClient  # ← NOUVEAU
 
 
 class LLMGenerator:
@@ -18,8 +18,6 @@ class LLMGenerator:
         self.active_backend = self.llm_config["active_backend"]
         self.defaults = self.llm_config.get("defaults", {})
         self.client = self._build_client()
-        
-        # Délai entre requêtes pour éviter les rate limits
         self.request_delay = self.defaults.get("request_delay_seconds", 1)
 
     def _build_client(self):
@@ -29,10 +27,10 @@ class LLMGenerator:
         if self.active_backend == "openai":
             return OpenAIClient(self.root_config)
 
-        if self.active_backend == "openai_compat":
+        if self.active_backend in {"openai_compat", "groq"}:
             return OpenAICompatibleClient(self.root_config)
 
-        if self.active_backend == "deepseek":  # ← NOUVEAU
+        if self.active_backend == "deepseek":
             return DeepSeekClient(self.root_config)
 
         if self.active_backend == "mock":
@@ -112,11 +110,10 @@ class LLMGenerator:
                 max_tokens=max_tokens,
             )
             responses.append(response)
-            
-            if not response.success:
+
+            if not response.success and response.error:
                 print(f"    [LLM] Failed: {response.error[:100]}...")
-            
-            # Délai entre les requêtes pour éviter les rate limits (sauf après la dernière)
+
             if idx < total - 1:
                 time.sleep(self.request_delay)
 

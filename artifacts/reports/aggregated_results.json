@@ -789,7 +789,7 @@
       "total_pass": 6,
       "best_candidate": {
         "candidate_id": "cand_01",
-        "mode": "hitl",
+        "mode": "eg",
         "use_case": "uc1",
         "llm_success": true,
         "backend": "deepseek",
@@ -847,7 +847,7 @@
           "returncode": 0,
           "stdout": "",
           "stderr": "",
-          "log_path": "runs\\uc1\\hitl\\attempt_00\\cand_01\\output.log"
+          "log_path": "runs\\uc1\\eg\\attempt_00\\cand_01\\output.log"
         },
         "parsed_log": {
           "has_error": false,
@@ -1550,7 +1550,7 @@
           "reason": "Nominal and robustness criteria were satisfied."
         },
         "attempt": 0,
-        "attempt_dir": "runs\\uc1\\hitl\\attempt_00"
+        "attempt_dir": "runs\\uc1\\eg\\attempt_00"
       }
     }
   },
@@ -1727,7 +1727,7 @@
       "total_pass": 0,
       "best_candidate": {
         "candidate_id": "cand_01",
-        "mode": "hitl",
+        "mode": "eg",
         "use_case": "uc2",
         "llm_success": true,
         "backend": "deepseek",
@@ -1798,7 +1798,7 @@
           "returncode": 0,
           "stdout": "",
           "stderr": "",
-          "log_path": "runs\\uc2\\hitl\\attempt_00\\cand_01\\output.log"
+          "log_path": "runs\\uc2\\eg\\attempt_00\\cand_01\\output.log"
         },
         "parsed_log": {
           "has_error": true,
@@ -1871,7 +1871,7 @@
           "reason": "Sanity checks reported issues and simulation did not complete successfully."
         },
         "attempt": 0,
-        "attempt_dir": "runs\\uc2\\hitl\\attempt_00"
+        "attempt_dir": "runs\\uc2\\eg\\attempt_00"
       }
     }
   },
@@ -2035,7 +2035,7 @@
       "total_pass": 0,
       "best_candidate": {
         "candidate_id": "cand_01",
-        "mode": "hitl",
+        "mode": "eg",
         "use_case": "uc3",
         "llm_success": true,
         "backend": "deepseek",
@@ -2103,7 +2103,7 @@
           "returncode": 0,
           "stdout": "",
           "stderr": "",
-          "log_path": "runs\\uc3\\hitl\\attempt_00\\cand_01\\output.log"
+          "log_path": "runs\\uc3\\eg\\attempt_00\\cand_01\\output.log"
         },
         "parsed_log": {
           "has_error": true,
@@ -2166,7 +2166,7 @@
           "reason": "Simulation failed or did not run successfully."
         },
         "attempt": 0,
-        "attempt_dir": "runs\\uc3\\hitl\\attempt_00"
+        "attempt_dir": "runs\\uc3\\eg\\attempt_00"
       }
     }
   }

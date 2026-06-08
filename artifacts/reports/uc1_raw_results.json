@@ -2297,10 +2297,10 @@
       "attempt_dir": "runs\\uc1\\baseline\\attempt_00"
     }
   ],
-  "hitl": [
+  "eg": [
     {
       "candidate_id": "cand_01",
-      "mode": "hitl",
+      "mode": "eg",
       "use_case": "uc1",
       "llm_success": true,
       "backend": "deepseek",
@@ -2358,7 +2358,7 @@
         "returncode": 0,
         "stdout": "",
         "stderr": "",
-        "log_path": "runs\\uc1\\hitl\\attempt_00\\cand_01\\output.log"
+        "log_path": "runs\\uc1\\eg\\attempt_00\\cand_01\\output.log"
       },
       "parsed_log": {
         "has_error": false,
@@ -3061,11 +3061,11 @@
         "reason": "Nominal and robustness criteria were satisfied."
       },
       "attempt": 0,
-      "attempt_dir": "runs\\uc1\\hitl\\attempt_00"
+      "attempt_dir": "runs\\uc1\\eg\\attempt_00"
     },
     {
       "candidate_id": "cand_02",
-      "mode": "hitl",
+      "mode": "eg",
       "use_case": "uc1",
       "llm_success": true,
       "backend": "deepseek",
@@ -3123,7 +3123,7 @@
         "returncode": 0,
         "stdout": "",
         "stderr": "",
-        "log_path": "runs\\uc1\\hitl\\attempt_00\\cand_02\\output.log"
+        "log_path": "runs\\uc1\\eg\\attempt_00\\cand_02\\output.log"
       },
       "parsed_log": {
         "has_error": false,
@@ -3826,11 +3826,11 @@
         "reason": "Nominal and robustness criteria were satisfied."
       },
       "attempt": 0,
-      "attempt_dir": "runs\\uc1\\hitl\\attempt_00"
+      "attempt_dir": "runs\\uc1\\eg\\attempt_00"
     },
     {
       "candidate_id": "cand_03",
-      "mode": "hitl",
+      "mode": "eg",
       "use_case": "uc1",
       "llm_success": true,
       "backend": "deepseek",
@@ -3888,7 +3888,7 @@
         "returncode": 0,
         "stdout": "",
         "stderr": "",
-        "log_path": "runs\\uc1\\hitl\\attempt_00\\cand_03\\output.log"
+        "log_path": "runs\\uc1\\eg\\attempt_00\\cand_03\\output.log"
       },
       "parsed_log": {
         "has_error": false,
@@ -4591,7 +4591,7 @@
         "reason": "Nominal and robustness criteria were satisfied."
       },
       "attempt": 0,
-      "attempt_dir": "runs\\uc1\\hitl\\attempt_00"
+      "attempt_dir": "runs\\uc1\\eg\\attempt_00"
     }
   ]
 }

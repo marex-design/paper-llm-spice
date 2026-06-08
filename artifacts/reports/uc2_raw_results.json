@@ -1304,10 +1304,10 @@
       "attempt_dir": "runs\\uc2\\baseline\\attempt_02"
     }
   ],
-  "hitl": [
+  "eg": [
     {
       "candidate_id": "cand_01",
-      "mode": "hitl",
+      "mode": "eg",
       "use_case": "uc2",
       "llm_success": true,
       "backend": "deepseek",
@@ -1378,7 +1378,7 @@
         "returncode": 0,
         "stdout": "",
         "stderr": "",
-        "log_path": "runs\\uc2\\hitl\\attempt_00\\cand_01\\output.log"
+        "log_path": "runs\\uc2\\eg\\attempt_00\\cand_01\\output.log"
       },
       "parsed_log": {
         "has_error": true,
@@ -1451,11 +1451,11 @@
         "reason": "Sanity checks reported issues and simulation did not complete successfully."
       },
       "attempt": 0,
-      "attempt_dir": "runs\\uc2\\hitl\\attempt_00"
+      "attempt_dir": "runs\\uc2\\eg\\attempt_00"
     },
     {
       "candidate_id": "cand_02",
-      "mode": "hitl",
+      "mode": "eg",
       "use_case": "uc2",
       "llm_success": true,
       "backend": "deepseek",
@@ -1526,7 +1526,7 @@
         "returncode": 0,
         "stdout": "",
         "stderr": "",
-        "log_path": "runs\\uc2\\hitl\\attempt_00\\cand_02\\output.log"
+        "log_path": "runs\\uc2\\eg\\attempt_00\\cand_02\\output.log"
       },
       "parsed_log": {
         "has_error": true,
@@ -1599,11 +1599,11 @@
         "reason": "Sanity checks reported issues and simulation did not complete successfully."
       },
       "attempt": 0,
-      "attempt_dir": "runs\\uc2\\hitl\\attempt_00"
+      "attempt_dir": "runs\\uc2\\eg\\attempt_00"
     },
     {
       "candidate_id": "cand_03",
-      "mode": "hitl",
+      "mode": "eg",
       "use_case": "uc2",
       "llm_success": true,
       "backend": "deepseek",
@@ -1674,7 +1674,7 @@
         "returncode": 0,
         "stdout": "",
         "stderr": "",
-        "log_path": "runs\\uc2\\hitl\\attempt_00\\cand_03\\output.log"
+        "log_path": "runs\\uc2\\eg\\attempt_00\\cand_03\\output.log"
       },
       "parsed_log": {
         "has_error": true,
@@ -1747,11 +1747,11 @@
         "reason": "Sanity checks reported issues and simulation did not complete successfully."
       },
       "attempt": 0,
-      "attempt_dir": "runs\\uc2\\hitl\\attempt_00"
+      "attempt_dir": "runs\\uc2\\eg\\attempt_00"
     },
     {
       "candidate_id": "cand_01",
-      "mode": "hitl",
+      "mode": "eg",
       "use_case": "uc2",
       "llm_success": true,
       "backend": "deepseek",
@@ -1812,7 +1812,7 @@
         "returncode": 0,
         "stdout": "",
         "stderr": "",
-        "log_path": "runs\\uc2\\hitl\\attempt_01\\cand_01\\output.log"
+        "log_path": "runs\\uc2\\eg\\attempt_01\\cand_01\\output.log"
       },
       "parsed_log": {
         "has_error": true,
@@ -1885,11 +1885,11 @@
         "reason": "Simulation failed or did not run successfully."
       },
       "attempt": 1,
-      "attempt_dir": "runs\\uc2\\hitl\\attempt_01"
+      "attempt_dir": "runs\\uc2\\eg\\attempt_01"
     },
     {
       "candidate_id": "cand_02",
-      "mode": "hitl",
+      "mode": "eg",
       "use_case": "uc2",
       "llm_success": true,
       "backend": "deepseek",
@@ -1950,7 +1950,7 @@
         "returncode": 0,
         "stdout": "",
         "stderr": "",
-        "log_path": "runs\\uc2\\hitl\\attempt_01\\cand_02\\output.log"
+        "log_path": "runs\\uc2\\eg\\attempt_01\\cand_02\\output.log"
       },
       "parsed_log": {
         "has_error": true,
@@ -2023,11 +2023,11 @@
         "reason": "Simulation failed or did not run successfully."
       },
       "attempt": 1,
-      "attempt_dir": "runs\\uc2\\hitl\\attempt_01"
+      "attempt_dir": "runs\\uc2\\eg\\attempt_01"
     },
     {
       "candidate_id": "cand_03",
-      "mode": "hitl",
+      "mode": "eg",
       "use_case": "uc2",
       "llm_success": true,
       "backend": "deepseek",
@@ -2088,7 +2088,7 @@
         "returncode": 0,
         "stdout": "",
         "stderr": "",
-        "log_path": "runs\\uc2\\hitl\\attempt_01\\cand_03\\output.log"
+        "log_path": "runs\\uc2\\eg\\attempt_01\\cand_03\\output.log"
       },
       "parsed_log": {
         "has_error": true,
@@ -2161,11 +2161,11 @@
         "reason": "Simulation failed or did not run successfully."
       },
       "attempt": 1,
-      "attempt_dir": "runs\\uc2\\hitl\\attempt_01"
+      "attempt_dir": "runs\\uc2\\eg\\attempt_01"
     },
     {
       "candidate_id": "cand_01",
-      "mode": "hitl",
+      "mode": "eg",
       "use_case": "uc2",
       "llm_success": true,
       "backend": "deepseek",
@@ -2236,7 +2236,7 @@
         "returncode": 0,
         "stdout": "",
         "stderr": "",
-        "log_path": "runs\\uc2\\hitl\\attempt_02\\cand_01\\output.log"
+        "log_path": "runs\\uc2\\eg\\attempt_02\\cand_01\\output.log"
       },
       "parsed_log": {
         "has_error": true,
@@ -2309,11 +2309,11 @@
         "reason": "Sanity checks reported issues and simulation did not complete successfully."
       },
       "attempt": 2,
-      "attempt_dir": "runs\\uc2\\hitl\\attempt_02"
+      "attempt_dir": "runs\\uc2\\eg\\attempt_02"
     },
     {
       "candidate_id": "cand_02",
-      "mode": "hitl",
+      "mode": "eg",
       "use_case": "uc2",
       "llm_success": true,
       "backend": "deepseek",
@@ -2384,7 +2384,7 @@
         "returncode": 0,
         "stdout": "",
         "stderr": "",
-        "log_path": "runs\\uc2\\hitl\\attempt_02\\cand_02\\output.log"
+        "log_path": "runs\\uc2\\eg\\attempt_02\\cand_02\\output.log"
       },
       "parsed_log": {
         "has_error": true,
@@ -2457,11 +2457,11 @@
         "reason": "Sanity checks reported issues and simulation did not complete successfully."
       },
       "attempt": 2,
-      "attempt_dir": "runs\\uc2\\hitl\\attempt_02"
+      "attempt_dir": "runs\\uc2\\eg\\attempt_02"
     },
     {
       "candidate_id": "cand_03",
-      "mode": "hitl",
+      "mode": "eg",
       "use_case": "uc2",
       "llm_success": true,
       "backend": "deepseek",
@@ -2532,7 +2532,7 @@
         "returncode": 0,
         "stdout": "",
         "stderr": "",
-        "log_path": "runs\\uc2\\hitl\\attempt_02\\cand_03\\output.log"
+        "log_path": "runs\\uc2\\eg\\attempt_02\\cand_03\\output.log"
       },
       "parsed_log": {
         "has_error": true,
@@ -2605,7 +2605,7 @@
         "reason": "Sanity checks reported issues and simulation did not complete successfully."
       },
       "attempt": 2,
-      "attempt_dir": "runs\\uc2\\hitl\\attempt_02"
+      "attempt_dir": "runs\\uc2\\eg\\attempt_02"
     }
   ]
 }

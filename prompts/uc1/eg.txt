@@ -6,16 +6,16 @@ You MUST satisfy BOTH constraints:
 2. gain_2kHz_db <= -20 dB
 
 Key reasoning:
-- Rs = 1kΩ
-- Rload = 100kΩ → negligible effect
-- Effective resistance ≈ 1kΩ
+- Rs = 1kOhm
+- Rload = 100kOhm -> negligible effect
+- Effective resistance ~= 1kOhm
 
 Therefore:
-- A capacitor around 0.8 µF is NOT acceptable (too much attenuation at 200 Hz)
-- A capacitor around 0.2 µF is NOT acceptable (insufficient attenuation at 2 kHz)
+- A capacitor around 0.8 uF is NOT acceptable (too much attenuation at 200 Hz)
+- A capacitor around 0.2 uF is NOT acceptable (insufficient attenuation at 2 kHz)
 
 Correct design region:
-👉 300 nF ≤ C ≤ 400 nF
+-> 300 nF <= C <= 400 nF
 
 Choose a value in this range.
 
